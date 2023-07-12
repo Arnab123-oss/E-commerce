@@ -1,0 +1,4 @@
+export const getAllProducts= (req,res)=>{
+    res.status(200).json({massage: "Route is working fine"})
+
+}
