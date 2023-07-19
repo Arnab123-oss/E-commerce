@@ -3,7 +3,7 @@ import { catchAsyncError } from "../middleware/catchAsyncErrors.js";
 import { User } from "../model/User.js";
 import { sendToken } from "../utils/sendToken.js";
 
-//Regiter a user
+//Register a user
 
 export const register = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -30,9 +30,29 @@ export const register = catchAsyncError(async (req, res, next) => {
     password,
     avatar: {
       public_id: "this is a sample id",
-      url: "ProfilePicurl",
+      url: "ProfilePicUrl",
     },
   });
 
   sendToken(res, user, "Registered Successfully", 201);
+});
+
+//Log User
+
+export const login = catchAsyncError(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password)
+    return next(new ErrorHandler("Please enter all field", 400));
+
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user) return next(new ErrorHandler("Incorrect Email or Password", 401));
+
+  const isMatch = await user.comparePassword(password);
+
+  if (!isMatch)
+    return next(new ErrorHandler("Incorrect Email or Password", 401));
+
+  sendToken(res, user, `Welcome back ${user.name}`, 200);
 });

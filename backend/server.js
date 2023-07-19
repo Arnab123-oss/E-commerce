@@ -2,11 +2,11 @@ import app from "./app.js";
 import dotenv from "dotenv";
 import { connectDatabase } from "./config/database.js";
 
-//Hanndling Uncought Exception
+//Handling Uncaught Exception
 
 process.on("uncaughtException", (err) => {
   console.log(`Error: ${err.message}`);
-  console.log(`shuting down the server due to Uncought Exception`);
+  console.log(`shuting down the server due to Uncaught Exception`);
   process.exit(1);
 } )
 

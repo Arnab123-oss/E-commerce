@@ -4,7 +4,7 @@ export const errorMiddleware = (err, req, res, next) => {
     err.message = err.message || "Internal server error";
     err.statusCode = err.statusCode || 500;
 
-    //Wrong Mongodp ID Error
+    //Wrong MongodB ID Error
 
     if(err.name === "CastError") {
       const message = `Resource not found. Invalid: ${err.path}`;
