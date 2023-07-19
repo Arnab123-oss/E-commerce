@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser);
+app.use(cookieParser());
 
 //Routes import
 import product from "./routes/productRoute.js";

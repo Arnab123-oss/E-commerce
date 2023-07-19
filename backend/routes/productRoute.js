@@ -10,7 +10,7 @@ import { isAuthenticated } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.route("/products").get(getAllProducts); //isAuthenticated,
+router.route("/products").get(isAuthenticated,getAllProducts); //isAuthenticated,
 
 router.route("/product/new").post(createProduct);
 
