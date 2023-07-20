@@ -1,11 +1,23 @@
 import express from "express";
-import { forgetPassword, login, logout, register, resetPassword } from "../controllers/userController.js";
-
+import {
+  forgetPassword,
+  getUserDetails,
+  login,
+  logout,
+  register,
+  resetPassword,
+  updatePassword,
+} from "../controllers/userController.js";
+import { isAuthenticated } from "../middleware/auth.js";
 const router = express.Router();
 
 router.route("/register").post(register);
 
 router.route("/login").post(login);
+
+router.route("/me").get(isAuthenticated, getUserDetails);
+
+router.route("/password/update").put(isAuthenticated, updatePassword);
 
 router.route("/password/forgot").post(forgetPassword);
 
