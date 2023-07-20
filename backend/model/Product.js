@@ -57,15 +57,19 @@ const schema = new mongoose.Schema({
       },
       comment: {
         type: String,
-        required:true
+        required: true,
       },
     },
   ],
-  createdAt:{
-    type:Date,
-    default:Date.now
-  }
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
-
 
 export const Product = mongoose.model("Product", schema);

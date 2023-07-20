@@ -6,6 +6,8 @@ import { ApiFeatures } from "../utils/apifeatures.js";
 // create product -- Admin
 
 export const createProduct = catchAsyncError(async (req, res, next) => {
+req.body.user=req.user.id
+
   const product = await Product.create(req.body);
 
   res.status(201).json({
@@ -25,7 +27,7 @@ export const getAllProducts = catchAsyncError(async (req, res) => {
   res.status(200).json({
     success: true,
     products,
-    productCount
+    productCount,
   });
 });
 //Update Product  -- Admin
@@ -75,8 +77,6 @@ export const getProductDetails = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    product
+    product,
   });
 });
-
-

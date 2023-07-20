@@ -5,13 +5,26 @@ import { User } from "../model/User.js";
 
 export const isAuthenticated = catchAsyncError(async (req, res, next) => {
   const { token } = req.cookies;
-  // console.log(token);
 
-  if (!token) return next(new ErrorHandler("Not LOgged in", 401));
+  if (!token) {
+    return next(new ErrorHandler("Please Login to access this resource", 401));
+  }
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
-  req.user = await User.findById(decoded._id);
+  req.user = await User.findById(decodedData.id);
 
   next();
 });
+
+export const authorizedAdmin = (req, res, next) => {
+  if (req.user.role !== "admin")
+    return next(
+      new ErrorHandler(
+        `${req.user.role} is not allowed to access this resource`,
+        403
+      )
+    );
+
+  next();
+};
