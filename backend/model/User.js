@@ -50,7 +50,7 @@ schema.pre("save", async function (next) {
 
 schema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: 15,
+    expiresIn: "15 days",
   });
 };
 

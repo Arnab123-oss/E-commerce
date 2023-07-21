@@ -5,6 +5,9 @@ import {
   updateProduct,
   deleteProduct,
   getProductDetails,
+  createProductReview,
+  getAllReviews,
+  deleteReview,
 } from "../controllers/productController.js";
 import { authorizedAdmin, isAuthenticated } from "../middleware/auth.js";
 
@@ -19,9 +22,15 @@ router
 router
   .route("admin/product/:id")
   .put(isAuthenticated, authorizedAdmin, updateProduct)
-  .delete(isAuthenticated, authorizedAdmin, deleteProduct)
- 
+  .delete(isAuthenticated, authorizedAdmin, deleteProduct);
 
-  router.route("/product/:id").get(getProductDetails);
+router.route("/product/:id").get(getProductDetails);
+
+router.route("/review").put(isAuthenticated, createProductReview);
+
+router
+  .route("/reviews")
+  .get(getAllReviews)
+  .delete(isAuthenticated, deleteReview);
 
 export default router;
