@@ -58,7 +58,7 @@ export const deleteProduct = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Product is not found", 500));
   }
 
-  await product.remove();
+  await product.deleteOne();
 
   res.status(200).json({
     success: true,

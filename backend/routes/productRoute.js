@@ -13,13 +13,15 @@ const router = express.Router();
 router.route("/products").get(getAllProducts); //isAuthenticated,
 
 router
-  .route("/product/new")
+  .route("admin/product/new")
   .post(isAuthenticated, authorizedAdmin, createProduct);
 
 router
-  .route("/product/:id")
+  .route("admin/product/:id")
   .put(isAuthenticated, authorizedAdmin, updateProduct)
   .delete(isAuthenticated, authorizedAdmin, deleteProduct)
-  .get(getProductDetails);
+ 
+
+  router.route("/product/:id").get(getProductDetails);
 
 export default router;

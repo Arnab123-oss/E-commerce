@@ -94,15 +94,16 @@ export const forgetPassword = catchAsyncError(async (req, res, next) => {
     "host"
   )}/password/reset/${resetToken}`;
 
+  
+  const to = user.email;
+  const from = process.env.SMTP_MAIL;
+  const subject = "E-Commerce Password Recovery";
   const message = `Click on the link to reset your password ${url} ,If you have not requested
   then please ignore`;
 
+
   try {
-    await sendEmail({
-      email: user.email,
-      subject: `E-Commerce Password Recovery`,
-      message,
-    });
+    await sendEmail({to, subject, message,from});
 
     res.status(200).json({
       success: true,
@@ -171,7 +172,7 @@ export const getUserDetails = catchAsyncError(async (req, res, next) => {
 export const updatePassword = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user.id).select("+password");
 
-  const isMatch = await user.comparePassword(req.body.oldpassword);
+  const isMatch = await user.comparePassword(req.body.oldPassword);
 
   if (!isMatch) return next(new ErrorHandler("Incorrect Old Password", 400));
 
@@ -184,4 +185,107 @@ export const updatePassword = catchAsyncError(async (req, res, next) => {
   await user.save()
 
   sendToken(res, user, `Welcome back ${user.name}`, 200);
+});
+
+
+// Contact US
+
+export const contact = catchAsyncError(async (req, res, next) => {
+  const { name, email, text } = req.body;
+
+  if (!name || !email || !text)
+    return next(new ErrorHandler("All fields are mandatory", 400));
+
+  const to = process.env.SMTP_MAIL;
+  const from = email;
+  const subject = "Contact from Company name";
+  const message = `I am ${name} and my Email is ${email}. \n${text}`;
+  // console.log(from);
+
+  await sendEmail({to, subject, message,from});
+
+  res.status(200).json({
+    success: true,
+    message: "Your message has been submitted successfully.",
+  });
+});
+
+
+export const updateProfile = catchAsyncError(async (req, res, next) => {
+  const { name, email } = req.body;
+
+  const user = await User.findById(req.user._id);
+
+  if (name) user.name = name;
+  if (email) user.email = email;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Profile Updated Successfully",
+  });
+});
+
+
+//Get All Users --- Admin
+
+export const getAllUsers = catchAsyncError(async (req, res, next) => {
+  const users = await User.find({});
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+//Get single user 
+
+export const getSingleUserDetails = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) return next(new ErrorHandler("User not found", 400));
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+//Update user role
+
+export const updateUserRole = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) return next(new ErrorHandler("User not found"), 404);
+
+  if (user.role === "user") user.role = "admin";
+  else user.role = "user";
+
+  await user.save();
+  res.status(200).json({
+    success: true,
+    message: "Role Updated",
+  });
+})
+
+//Delete USer
+
+export const deleteUser = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) return next(new ErrorHandler("User not found"), 404);
+
+  // await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+  //cancel Subscription
+
+  // console.log(user);
+
+  await user.deleteOne();
+
+  res.status(200).json({
+    success: true,
+    message: "Deleted User Successfully",
+  });
 });

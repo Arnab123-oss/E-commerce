@@ -14,8 +14,8 @@ export const sendEmail = async (options) => {
   });
 
   const mailOptions = {
-    from: process.env.SMTP_MAIL,//process.env.SMTP_MAIL,
-    to: options.email,  //options.email "ankit6686482@gmail.com"
+    from: options.from,//process.env.SMTP_MAIL,
+    to: options.to,  //options.email "ankit6686482@gmail.com"
     subject: options.subject,
     text: options.message,
   };
