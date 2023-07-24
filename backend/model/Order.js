@@ -57,6 +57,11 @@ const schema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  paymentMethod: {
+    type: String,
+    enum: ["COD", "Online"],
+    default: "COD",
+  },
   paymentInfo: {
     id: {
       type: String,
@@ -94,8 +99,8 @@ const schema = new mongoose.Schema({
   },
   orderStatus: {
     type: String,
-    required: true,
-    default: "Processing",
+    enum: ["Preparing", "Shipped", "Delivered"],
+    default: "Preparing",
   },
   deliveredAt: Date,
   createdAt: {
@@ -103,7 +108,5 @@ const schema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
-
 
 export const Order = mongoose.model("Order", schema);
