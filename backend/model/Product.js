@@ -54,7 +54,7 @@ const schema = new mongoose.Schema({
       },
       name: {
         type: String,
-        required: [true, "Please Enter product Name"],
+        required: true,
       },
       rating: {
         type: Number,

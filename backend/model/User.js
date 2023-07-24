@@ -9,8 +9,8 @@ const schema = new mongoose.Schema({
   name: {
     type: String,
     required: [, "Please Enter Your Name"],
-    maxLength: [30, "Nmae can not exceed 30 charecters"],
-    minLength: [4, "Name should have more than 4 cherecter"],
+    maxLength: [30, "Name can not exceed 30 characters"],
+    minLength: [4, "Name should have more than 4 character"],
   },
   email: {
     type: String,
@@ -21,7 +21,7 @@ const schema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please Enter Your Password"],
-    minLength: [8, "Password should be grater than 8 cherecters"],
+    minLength: [8, "Password should be grater than 8 characters"],
     select: false,
   },
   avatar: {
