@@ -2,7 +2,7 @@ import React from "react";
 import {BsSearchHeart} from "react-icons/bs"
 import {FaLuggageCart} from "react-icons/fa"
 import {RxAvatar} from "react-icons/rx"
-import logo from "../../images/logo.png";
+import logo from "../../../images/logo.png";
 import { ReactNavbar } from "overlay-navbar";
 
 const options = {
