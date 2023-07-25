@@ -132,38 +132,12 @@ export const deleteOrder = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "Order deleted Sucessfully",
+    message: "Order deleted Successfully",
   });
 });
 
 
-//4:38:52
 
 
-// {
-//   "itemsPrice": 200,
-//   "taxPrice": 36,
-//   "shippingPrice": 100,
-//   "totalPrice": 336,
-//   "orderItems": [
-//       {
-//           "product": "64b182d34f28420d3dd51594",
-//           "name": "Fuck one",
-//           "price": 200,
-//           "quantity": 1,
-//           "image": "this is sample image"
-//       }
-//   ],
-//      "shippingInfo":{
-//       "address":"A-47",
-//       "city":"Kharagpur",
-//       "state":"West Bengal",
-//       "country":"India",
-//       "pinCode":123456,
-//       "phoneNo":1234854114
-//   },
-//   "paymentInfo" :{
-//       "id":"sample paymentInfo",
-//       "status":"succeeded"
-//   }
-// }
+
+
