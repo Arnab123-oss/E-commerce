@@ -1,6 +1,7 @@
 import React from "react";
 import playStore from "../../../images/playStore.png";
 import appStore from "../../../images/appStore.png";
+import "./Footer.css";
 import {
   AiFillInstagram,
   AiFillYoutube,
@@ -13,8 +14,8 @@ const Footer = () => {
       <div className="leftFooter">
         <h4>Download Our AP4</h4>
         <p>Download App for Android andios mobile phone</p>
-        {/* <img src={playStore} alt="playstore" /> */}
-        {/* <img src={appStore} alt="Appstore" /> */}
+        <img src={playStore} alt="playstore" />
+        <img src={appStore} alt="Appstore" />
       </div>
       <div className="midFooter">
         <h1>E-commerce</h1>
