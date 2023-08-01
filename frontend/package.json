@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.14.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -14,6 +16,7 @@
     "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.10.1",
+    "react-material-ui-carousel": "^3.4.2",
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.2",
@@ -45,5 +48,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://192.168.86.208:4000"
 }

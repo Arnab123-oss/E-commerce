@@ -1,11 +1,14 @@
 import express from "express";
 import { errorMiddleware } from "./middleware/error.js";
 import cookieParser from "cookie-parser";
+import cors from "cors"
 
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(cors())    
 
 //Routes import
 import product from "./routes/productRoute.js";
@@ -21,3 +24,10 @@ app.use("/api/v1", order);
 app.use(errorMiddleware);
 
 export default app;
+
+// {
+//     origin:"http://127.0.0.1:3000", //process.env.FRONTEND_URL
+//     Credentials:true,
+//     method: ["GET","POST","PUT","DELETE"]
+//   }
+

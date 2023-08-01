@@ -1,18 +1,41 @@
 import { server } from '../store';
 import axios from 'axios';
 
-export const getAllProducts = (category = '', keyword = '') =>
+
+export const getAllProducts = () =>
   async dispatch => {
     try {
       dispatch({ type: 'getAllProductRequest' });
       const { data } = await axios.get(
-        `${server}/products?keyword=${keyword}&category=${category}`
+        `${server}/products`
       );
-      dispatch({ type: 'getAllProductSuccess', payload: data });
+      // console.log(data);
+      dispatch({ type: 'getAllProductSuccess', payload: data});
     } catch (error) {
+      // console.log(error)
       dispatch({
         type: 'getAllProductFail',
         payload: error.response.data.message,
       });
     }
   };
+
+
+  export const getSingleProducts = (id) =>
+  async dispatch => {
+    try {
+      dispatch({ type: 'productDetailsRequest' });
+      const { data } = await axios.get(
+        `${server}/product/${id}`
+      );
+      // console.log(data);
+      dispatch({ type: 'productDetailsSuccess', payload: data.product});
+    } catch (error) {
+      // console.log(error)
+      dispatch({
+        type: 'productDetailsFail',
+        payload: error.response.data.message,
+      });
+    }
+  };
+

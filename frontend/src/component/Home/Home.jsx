@@ -1,42 +1,57 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CgMouse } from "react-icons/cg";
 import "./Home.css";
 import Product from "./Product.jsx";
 import MetaData from "../layout/Hader/MetaData";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../../Redux/action/product";
+import { toast } from "react-hot-toast";
+import Loader from "../layout/Loader/Loader";
 
 const Home = () => {
-  const product = {
-    name: "FKUC T-Shirt",
-    image: [{ url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStopilBDbbZbQyrRDVe0rlcZcmaQIJbOUaGLHgoUk4psGhG0svG0hk8YbbNIAL3CNfSH0&usqp=CAUQA" }],
-    price: 1254,
-    _id: "fuckgirl",
-  };
+  const dispatch = useDispatch();
+  const { message, error, productCount, products, loading } = useSelector(
+    (state) => state.product
+  );
+  useEffect(() => {
+    dispatch(getAllProducts());
+    if (error) {
+      toast.error(error);
+      dispatch({ type: "clearError" });
+    }
+
+    if (message) {
+      toast.success(message);
+      dispatch({ type: "clearMessage" });
+    }
+  }, [dispatch, error, message]);
+
   return (
     <>
-     <MetaData title="E-COMMERCE" />
-      <div className="banner">
-        <p>Welcome to E-commerce!</p>
-        <h1>FIND AMAZING PRODUCT BELOW</h1>
-        <a href="#container">
-          <button>
-            Scroll <CgMouse />
-          </button>
-        </a>
-      </div>
-      <h2 className="homeHeading">Featured Products</h2>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <MetaData title="E-COMMERCE" />
+          <div className="banner">
+            <p>Welcome to E-commerce!</p>
+            <h1>FIND AMAZING PRODUCT BELOW</h1>
+            <a href="#container">
+              <button>
+                Scroll <CgMouse />
+              </button>
+            </a>
+          </div>
+          <h2 className="homeHeading">Featured Products</h2>
 
-      <div className="container" id="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-
-      </div>
+          <div className="container" id="container">
+            {products &&
+              products.map((product) => (
+                <Product key={product._id} product={product} />
+              ))}
+          </div>
+        </>
+      )}
     </>
   );
 };
