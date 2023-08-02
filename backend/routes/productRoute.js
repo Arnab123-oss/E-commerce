@@ -20,7 +20,7 @@ router
   .post(isAuthenticated, authorizedAdmin, createProduct);
 
 router
-  .route("admin/product/:id")
+  .route("/admin/product/:id")
   .put(isAuthenticated, authorizedAdmin, updateProduct)
   .delete(isAuthenticated, authorizedAdmin, deleteProduct);
 
