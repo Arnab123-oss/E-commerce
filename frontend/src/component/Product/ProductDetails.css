@@ -41,8 +41,8 @@ i.fa.fa-search {
 h3 {
   color: #ffffff;
   font-family: "muli";
-  margin-top: 84px;
-  font-size: 20px;
+  margin-top: 2rem;
+    font-size: 20px;
   font-weight: 500;
 }
 
@@ -70,16 +70,16 @@ h4.dis {
   font-weight: 400;
   font-size: 17px;
   margin-left: 30px;
-  text-decoration: line-through #ea3201;
+  /* text-decoration: line-through #ea3201; */
 }
 
 h4.dis span {
   text-decoration: line-through #ea3201;
 }
 
-.discount {
+/* .discount {
   display: inline-block;
-}
+} */
 
 ul {
   list-style-type: none;
@@ -159,7 +159,7 @@ ul li {
 .foot {
   color: #ffffff;
   font-family: "muli";
-  margin-top: 20px;
+  margin-top: 12px;
   margin-right: 50px;
   font-weight: 500;
   font-size: 11px;
@@ -169,7 +169,7 @@ ul li {
 }
 
 .svg {
-  margin-top: 20px;
+  margin-top: 12px;
   margin-right: 0.5rem;
   font-weight: 500;
   font-size: 1rem;
@@ -192,16 +192,19 @@ ul li {
 
 .left svg {
   color: #ffd5c6;
-  margin-top: 20rem;
+  
   transition: 0.3s all ease;
 }
 
 .arrow-left {
-  margin-left: -100px;
+  margin-left: -150px;
+  margin-top: 20rem;
+ 
 }
 
 .arrow-right {
   margin-left: 15px;
+  margin-top: 20rem;
 }
 
 .left svg:hover {
@@ -217,10 +220,10 @@ ul li {
   background: #252831
     url(https://www.dropbox.com/s/fuadz3vmw2nsylm/bg.png?raw=1) no-repeat;
   height: 600px;
-  width: 800px;
+  width: 1000px;
   margin: 0 auto;
   box-shadow: 0px 15px 50px 10px rgba(0, 0, 0, 0.4);
-  margin-top: 2%;
+  margin-top: 8%;
 }
 
 .left {
@@ -230,28 +233,27 @@ ul li {
   display: flex;
   align-items: center;
   background-color: #ff6d39;
-  margin-left: 93px;
-  border-radius: 0% 50% 50% 0%;
+  margin-left: 150px;
+  border-radius: 0% 50% 0% 50%;                 /*   0% 50% 50% 0% */
   position: absolute;
   z-index: 5;
 }
 
 .left img {
-  margin-left: -88px;
-  margin-top: 60px;
-  width: 375px;
-  aspect-ratio: auto 375 / 267;
-  height: 267px;
+  width: 150px;
 
 }
-
+.btn{
+  background-color: transparent;
+  border: none;
+}
 .right {
   content: "";
   height: 395px;
   width: 550px;
   background-color: #2a2f40;
   z-index: 3;
-  margin-left: 200px;
+  margin-left: 300px;
 }
 
 .product-info {

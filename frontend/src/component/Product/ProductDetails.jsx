@@ -1,57 +1,75 @@
-import React from "react";
-import Carousel from "react-material-ui-carousel";
+import React, { useState } from "react";
+import Carousel from "react-elastic-carousel";
 import "./ProductDetails.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getSingleProducts } from "../../Redux/action/product";
 import { useParams } from "react-router-dom";
-import { HiOutlineShoppingBag } from "react-icons/hi";
+import { MdRateReview } from "react-icons/md";
 import { LiaOpencart } from "react-icons/lia";
-import { BsArrowRightShort,BsArrowLeftShort } from "react-icons/bs";
+import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
+import ReactStars from "react-rating-stars-component";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
-  const { product, loading, error } = useSelector(
-    (state) => state.productDetails
-  );
+  const { product } = useSelector((state) => state.productDetails);
   const params = useParams();
+
+  const [slideIndex, setSlideIndex] = useState(1);
+
+  const next = () => {
+    
+    if (slideIndex !== product.images.length) {
+      setSlideIndex(slideIndex+1);
+    } else if (slideIndex === product.images.length) {
+      setSlideIndex(1);
+    }
+    // console.log(slideIndex);
+  };
+  const prev = () => {
+ 
+    console.log(slideIndex +"bg");
+    if (slideIndex !== 1) {
+      setSlideIndex(slideIndex -1);
+    } else if (slideIndex === 1) {
+      setSlideIndex(product.images.length);
+    }
+    console.log(slideIndex);
+  };
 
   useEffect(() => {
     dispatch(getSingleProducts(params.id));
   }, [dispatch, params.id]);
 
+  const options = {
+    edit: false,
+    color: "rgba(242, 240, 240,0.5)",
+    activeColor: "tomato",
+    size: window.innerWidth < 600 ? 20 : 25,
+    value: product.ratings,
+    isHalf: true,
+  };
+
   return (
-    // <>
-    //   <div className="ProductDetailsPage">
-    //     <div>
-    //       <Carousel>
-    //         {product.images &&
-    //           product.images.map((item, i) => (
-    //             <img
-    //               className="CarouselImage"
-    //               key={i}
-    //               src={item.url}
-    //               alt={`${i} Slide`}
-    //             />
-    //           ))}
-    //       </Carousel>
-    //     </div>
-    //   </div>
-    // </>
     <div className="card">
       <div className="left">
-   
+        <Carousel showArrows={true} pagination={false}>
           {product.images &&
             product.images.map((item, i) => (
-              <img
-                key={i}
-                src={item.url}
-                alt={`${i} Slide`}
-              />
+              <img key={i} src={item.url} alt={`${i} Slide`} />
             ))}
-           <BsArrowLeftShort className="arrow-left"/>
-          <BsArrowRightShort className="arrow-right"/>
-    
+        </Carousel>
+        {/* className="arrow-left"  */}
+        <button className="arrow-left btn" onClick={prev}>
+          {" "}
+          <BsArrowLeftShort />
+        </button>
+        <button className="arrow-right btn" onClick={next}>
+          {" "}
+          <BsArrowRightShort />
+        </button>
+        {/* <BsArrowLeftShort className="arrow-left" />
+        <BsArrowRightShort className="arrow-right" /> */}
       </div>
       <div className="right">
         <div className="product-info">
@@ -59,25 +77,18 @@ const ProductDetails = () => {
             <h1>Airmax</h1>
           </div>
           <div className="details">
-            <h3>Winter Collection</h3>
-            <h2>Men Black Sneakers</h2>
+            <h3>{product.name}</h3>
+            <h2>{product.description}</h2>
             <h4>
-              <span className="fa fa-dollar" />
-              15000
+              <span className="fa fa-dollar" />$ {product.price}
             </h4>
             <h4 className="dis">
               <span className="fa fa-dollar" />
-              20000
+              Stock | {product.Stock}
             </h4>
           </div>
-          <ul>
-            <li>SIZE</li>
-            <li className="bg">7</li>
-            <li className="bg">8</li>
-            <li className="bg">9</li>
-            <li className="bg">10</li>
-            <li className="bg">11</li>
-          </ul>
+          <ReactStars {...options} />
+
           <ul>
             <li>COLOR</li>
             <li className="yellow" />
@@ -85,9 +96,9 @@ const ProductDetails = () => {
             <li className="blue" />
           </ul>
           <span className="svg">
-            <HiOutlineShoppingBag />
+            <MdRateReview />
           </span>
-          <span className="foot">Buy Now</span>
+          <span className="foot">Add Review</span>
           <span className="svg">
             <LiaOpencart />
           </span>
