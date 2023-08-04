@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Carousel from "react-elastic-carousel";
+// import Carousel from "react-material-ui-carousel";
+
 import "./ProductDetails.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -18,19 +20,17 @@ const ProductDetails = () => {
   const [slideIndex, setSlideIndex] = useState(1);
 
   const next = () => {
-    
     if (slideIndex !== product.images.length) {
-      setSlideIndex(slideIndex+1);
+      setSlideIndex(slideIndex + 1);
     } else if (slideIndex === product.images.length) {
       setSlideIndex(1);
     }
-    // console.log(slideIndex);
+    console.log(slideIndex);
   };
   const prev = () => {
- 
-    console.log(slideIndex +"bg");
+    console.log(slideIndex + "bg");
     if (slideIndex !== 1) {
-      setSlideIndex(slideIndex -1);
+      setSlideIndex(slideIndex - 1);
     } else if (slideIndex === 1) {
       setSlideIndex(product.images.length);
     }
@@ -51,25 +51,23 @@ const ProductDetails = () => {
   };
 
   return (
+
     <div className="card">
       <div className="left">
-        <Carousel showArrows={true} pagination={false}>
+        <Carousel className="btn" showArrows={true} pagination={false} verticalMode={false} isRTL={false}>
           {product.images &&
             product.images.map((item, i) => (
               <img key={i} src={item.url} alt={`${i} Slide`} />
             ))}
         </Carousel>
-        {/* className="arrow-left"  */}
+
         <button className="arrow-left btn" onClick={prev}>
-          {" "}
           <BsArrowLeftShort />
         </button>
         <button className="arrow-right btn" onClick={next}>
-          {" "}
           <BsArrowRightShort />
         </button>
-        {/* <BsArrowLeftShort className="arrow-left" />
-        <BsArrowRightShort className="arrow-right" /> */}
+
       </div>
       <div className="right">
         <div className="product-info">

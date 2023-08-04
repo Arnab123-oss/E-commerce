@@ -12,7 +12,7 @@ export const getAllProducts = () =>
       // console.log(data);
       dispatch({ type: 'getAllProductSuccess', payload: data});
     } catch (error) {
-      // console.log(error)
+      // console.log(response.message)
       dispatch({
         type: 'getAllProductFail',
         payload: error.response.data.message,
