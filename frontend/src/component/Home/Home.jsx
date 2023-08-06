@@ -57,3 +57,7 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+//npm config set legacy-peer-deps true
