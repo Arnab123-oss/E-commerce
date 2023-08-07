@@ -7,9 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getSingleProducts } from "../../Redux/action/product";
 import { useParams } from "react-router-dom";
-import { MdRateReview } from "react-icons/md";
-import { LiaOpencart } from "react-icons/lia";
-import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import ReactStars from "react-rating-stars-component";
 
 const ProductDetails = () => {
@@ -33,38 +30,10 @@ const ProductDetails = () => {
     return () => clearInterval(interval);
   });
 
-  // const [slideIndex, setSlideIndex] = useState(1);
-
-  // const next = () => {
-  //   if (slideIndex !== product.images.length) {
-  //     setSlideIndex(slideIndex + 1);
-  //   } else if (slideIndex === product.images.length) {
-  //     setSlideIndex(1);
-  //   }
-  //   console.log(slideIndex);
-  // };
-  // const prev = () => {
-  //   console.log(slideIndex + "bg");
-  //   if (slideIndex !== 1) {
-  //     setSlideIndex(slideIndex - 1);
-  //   } else if (slideIndex === 1) {
-  //     setSlideIndex(product.images.length);
-  //   }
-  //   console.log(slideIndex);
-  // };
-
   useEffect(() => {
     dispatch(getSingleProducts(params.id));
   }, [dispatch, params.id]);
 
-  const options = {
-    edit: false,
-    color: "rgba(242, 240, 240,0.5)",
-    activeColor: "tomato",
-    size: window.innerWidth < 600 ? 20 : 25,
-    value: product.ratings,
-    isHalf: true,
-  };
 
   return (
     <>
@@ -75,28 +44,18 @@ const ProductDetails = () => {
               src="http://co0kie.github.io/codepen/nike-product-page/nikeLogo.png"
               alt=""
               className="product-logo"
-            />
-            {/* <img
-        src="https://www.svgrepo.com/download/4454/t-shirt.svg"
-        alt=""
-        className="product-pic"
-      /> */}
-            {/* {product.images &&
-            product.images.map((item, i) => (
-               <img className="product-pic" key={i} src={item.url} alt={`${i} Slide`} />
-            ))} */}
-
-            {/* className="carousel-item " */}
+            />           
             <div className="carousel-container">
               {product.images &&
                 product.images.map((item, i) => (
-                  <img
-                 
-                    style={{ transform: `translate(-${currentIndex * 100}%)` }}
-                    key={i}
-                    src={item.url}
-                    alt={`${i} Slide`}
-                  />
+                  <div
+                    className="carousel-image"
+                    style={{
+                      transform: `translate(-${currentIndex * 100}%)`,
+                    }}
+                  >
+                    <img key={i} src={item.url} alt={`${i} Slide`} />
+                  </div>
                 ))}
             </div>
             <div className="dots">
@@ -116,11 +75,11 @@ const ProductDetails = () => {
           </div>
           <div className="product-details">
             <header>
-              <h1 className="title">Nike Roshe Run</h1>
+              <h1 className="title">{product.name}</h1>
               <span className="colorCat">mint green</span>
               <div className="price">
-                <span className="before">$150</span>
-                <span className="current">$144.99</span>
+                <span className="current">$ {product.price}</span>
+                <span className="before">Stock | {product.Stock}</span>
               </div>
               <div className="rate">
                 <a href="#!" className="active">
@@ -139,10 +98,7 @@ const ProductDetails = () => {
             <article>
               <h5>Description</h5>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                {product.description}
               </p>
             </article>
             <div className="controls">
@@ -194,7 +150,7 @@ const ProductDetails = () => {
                 />
                 <span>add</span>
               </button> */}
-              {/*        <a href="#!"><img src="http://co0kie.github.io/codepen/nike-product-page/share.png" alt=""></a> */}
+                     {/* <a href="#!"><img src="http://co0kie.github.io/codepen/nike-product-page/share.png" alt=""/></a> */}
             </div>
           </div>
         </div>
