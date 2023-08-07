@@ -76,27 +76,29 @@ const ProductDetails = () => {
               alt=""
               className="product-logo"
             />
-            <img
+            {/* <img
         src="https://www.svgrepo.com/download/4454/t-shirt.svg"
         alt=""
         className="product-pic"
-      />
+      /> */}
             {/* {product.images &&
             product.images.map((item, i) => (
                <img className="product-pic" key={i} src={item.url} alt={`${i} Slide`} />
             ))} */}
-            {/* <div className="carousel-container">
+
+            {/* className="carousel-item " */}
+            <div className="carousel-container">
               {product.images &&
                 product.images.map((item, i) => (
                   <img
-                    className="carousel-item product-pic"
-                    style={{ transform: `translate(-${currentIndex * 80}%)` }}
+                 
+                    style={{ transform: `translate(-${currentIndex * 100}%)` }}
                     key={i}
                     src={item.url}
                     alt={`${i} Slide`}
                   />
                 ))}
-            </div> */}
+            </div>
             <div className="dots">
               <a href="#!" className="active">
                 <i>1</i>
@@ -185,13 +187,13 @@ const ProductDetails = () => {
                 />
                 <span>add to cart</span>
               </button>
-              <button type="button">
+              {/* <button type="button">
                 <img
                   src="http://co0kie.github.io/codepen/nike-product-page/cart.png"
                   alt=""
                 />
                 <span>add</span>
-              </button>
+              </button> */}
               {/*        <a href="#!"><img src="http://co0kie.github.io/codepen/nike-product-page/share.png" alt=""></a> */}
             </div>
           </div>

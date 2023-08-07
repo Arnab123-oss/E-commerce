@@ -44,10 +44,11 @@ a {
   border-radius: 20px 20px 0 0;
   padding: 55px 0;
   width: 100%;
-  margin: auto;
+  /* margin: auto; */
 }
 .product-pic {
-  max-width: 180px;
+  /* max-width: 150px; */
+  width: 90%;
   position: relative;
   left: 0;
   margin: 40px 0;
@@ -275,8 +276,9 @@ a {
     max-width: 330px;
   }
   .product-pic {
-    left: -40px;
-    max-width: 330px;
+    /* left: -40px; */
+    /* width: 90%; */
+    /* width: 100%; */
   }
   .product-details {
     width: 100%;
@@ -285,7 +287,7 @@ a {
 }
 
 .carousel-container {
-  /* background: #fafafa;  */
+  background: transparent; 
   display: flex; 
   /* flex-wrap: nowrap; */
   overflow: hidden; }
@@ -299,8 +301,17 @@ a {
   align-items: center;
   justify-content: center;
   transition: 1s cubic-bezier(0.39, 0.575, 0.565, 1);
-  z-index: 999;
+  /* z-index: 999; */
   }
+  .carousel-container >img{
+    min-width: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+  }
+
 
 /* @import url("https://fonts.googleapis.com/css?family=Muli");
 
