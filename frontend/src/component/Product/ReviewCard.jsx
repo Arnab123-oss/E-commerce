@@ -5,7 +5,7 @@ const ReviewCard = ({ review }) => {
   const Star = Array.from({ length: 5 }, (elem, index) => {
     let number = index + 0.5;
     return (
-      <>
+      <a>
         {reviewRating >= index + 1 ? (
           <BsFillStarFill />
         ) : reviewRating >= number ? (
@@ -13,7 +13,7 @@ const ReviewCard = ({ review }) => {
         ) : (
           <BsStar />
         )}
-      </>
+      </a>
     );
   });
   const profilePng= "https://pixlok.com/wp-content/uploads/2022/02/Profile-Icon-SVG-09856789.png"
@@ -21,7 +21,8 @@ const ReviewCard = ({ review }) => {
     <div className="reviewCard">
       <img src={profilePng} alt="User" />
       <p>{review.name}</p>
-      {Star}
+      <div className="rate">{Star}</div>
+     
       <span className="reviewCardComment">{review.comment}</span>
     </div>
   );

@@ -81,6 +81,7 @@
   
   .productCard > img {
     width: 14vmax;
+    margin: auto;
   }
   
   .productCard > div {

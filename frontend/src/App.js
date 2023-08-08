@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import WebFont from "webfontloader";
 import { useEffect } from "react";
 import ProductDetails from "./component/Product/ProductDetails"
+import Products from "./component/Product/Products"
 
 function App() {
   // const dispatch = useDispatch();
@@ -29,6 +30,8 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/products" element={<Products />} />
+
       </Routes>
       <Footer />
       <Toaster />
