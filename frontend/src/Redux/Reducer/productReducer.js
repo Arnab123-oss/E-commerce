@@ -25,13 +25,13 @@ export const productReducer = createReducer(
 );
 
 export const productDetailsReducer = createReducer(
-  { product:{}},
+  { singleProduct:{ratings:0}},
   {productDetailsRequest: (state) => {
     state.loading = true;
   },
   productDetailsSuccess: (state, action) => {
     state.loading = false;
-    state.product = action.payload;
+    state.singleProduct = action.payload;
     
   },
   productDetailsFail: (state, action) => {

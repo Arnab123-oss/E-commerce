@@ -80,9 +80,13 @@ a {
   margin-left: 6px;
 }
 .product-details .before {
-  /* text-decoration: line-through; */
   margin-left: 2rem;
-  color: rgb(99, 221, 111);
+}
+.product-details .fc-g{
+  color: green;
+}
+.product-details .fc-r{
+  color: red
 }
 .product-details header {
   margin-bottom: 50px;
@@ -180,13 +184,13 @@ a {
   position: static;
   margin-top: 10px;
 }
-.product-details .rate a {
-  font-size: 18px;
-  color: #bbb;
+.product-details .rate a,
+.product-details .rate a:read-only {
+  color: rgb(218, 139, 56);
 }
-.product-details .rate a.active,
-.product-details .rate a:hover {
-  color: #fe6067;
+.reviewCount {
+  margin: 0.5vmax;
+  font: 300 2vmax "Roboto";
 }
 .dots {
   display: flex;
@@ -262,7 +266,10 @@ a {
   .product-details .controls {
     display: flex;
   }
-
+  .reviewCount {
+    margin: 0.5vmax;
+    font: 300 2vmax "Roboto";
+  }
 }
 @media (min-width: 56.25em) {
   .Product-container {
@@ -284,6 +291,10 @@ a {
     width: 100%;
     border-radius: 0 20px 20px 0;
   }
+  .reviewCount {
+    margin: 0.5vmax;
+    font: 300 0.9vmax "Roboto";
+  }
 }
 
 .carousel-container {
@@ -291,7 +302,6 @@ a {
   display: flex;
   flex-wrap: nowrap;
   overflow: hidden;
-
 }
 
 /* .carousel-item {
@@ -315,4 +325,3 @@ a {
   width: 80%;
   margin: 5em 0 2em 0;
 }
-
