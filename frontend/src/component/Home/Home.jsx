@@ -10,7 +10,7 @@ import Loader from "../layout/Loader/Loader";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { message, error, productCount, products, loading } = useSelector(
+  const { message, error,products, loading } = useSelector(
     (state) => state.product
   );
   useEffect(() => {

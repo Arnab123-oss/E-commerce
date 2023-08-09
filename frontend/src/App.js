@@ -9,6 +9,8 @@ import WebFont from "webfontloader";
 import { useEffect } from "react";
 import ProductDetails from "./component/Product/ProductDetails"
 import Products from "./component/Product/Products"
+import Search from "./component/Product/Search.jsx"
+
 
 function App() {
   // const dispatch = useDispatch();
@@ -31,6 +33,10 @@ function App() {
 
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/products/:keyword" element={<Products />} />
+
+        <Route path="/search" element={<Search />} />
+
 
       </Routes>
       <Footer />

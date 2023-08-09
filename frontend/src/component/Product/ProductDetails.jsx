@@ -121,19 +121,19 @@ const ProductDetails = () => {
                     <h5>color</h5>
                     <ul>
                       <li>
-                        <a href="#!" className="colors color-bdot1 active" />
+                        <a  className="colors color-bdot1 active" />
                       </li>
                       <li>
-                        <a href="#!" className="colors color-bdot2" />
+                        <a  className="colors color-bdot2" />
                       </li>
                       <li>
-                        <a href="#!" className="colors color-bdot3" />
+                        <a className="colors color-bdot3" />
                       </li>
                       <li>
-                        <a href="#!" className="colors color-bdot4" />
+                        <a  className="colors color-bdot4" />
                       </li>
                       <li>
-                        <a href="#!" className="colors color-bdot5" />
+                        <a  className="colors color-bdot5" />
                       </li>
                     </ul>
                   </div>

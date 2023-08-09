@@ -29,6 +29,7 @@ export const getAllProducts = catchAsyncError(async (req, res) => {
     success: true,
     products,
     productCount,
+    resultPerPage
   });
 });
 //Update Product  -- Admin
