@@ -2,11 +2,17 @@ import { server } from "../store";
 import axios from "axios";
 
 export const getAllProducts =
-  (keyword = "", currentPage = 1, price = [0, 25000]) =>
+  (keyword = "", currentPage = 1, price = [0, 80000], category,ratings=0) =>
   async (dispatch) => {
     try {
       dispatch({ type: "getAllProductRequest" });
-      let link = `${server}/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
+      let link = `${server}/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+
+      if (category) {
+       link = `${server}/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+
+      }
+
       const { data } = await axios.get(link);
       // console.log(data);
       dispatch({ type: "getAllProductSuccess", payload: data });

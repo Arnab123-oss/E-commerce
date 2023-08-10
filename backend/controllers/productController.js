@@ -22,14 +22,18 @@ export const getAllProducts = catchAsyncError(async (req, res) => {
   const productCount = await Product.countDocuments();
   const apifeatures = new ApiFeatures(Product.find(), req.query)
     .search()
-    .filter()
-    .pagination(resultPerPage);
-  const products = await apifeatures.query;
+    .filter();
+  let products = await apifeatures.query;
+  let filteredProductsCount = products.length;
+  apifeatures.pagination(resultPerPage);
+  products = await apifeatures.query.clone();
+  
   res.status(200).json({
     success: true,
     products,
     productCount,
-    resultPerPage
+    resultPerPage,
+    filteredProductsCount
   });
 });
 //Update Product  -- Admin
@@ -136,8 +140,6 @@ export const getAllReviews = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Product is not found", 500));
   }
 
-  
-
   res.status(200).json({
     success: true,
     reviews: product.reviews,
@@ -189,6 +191,5 @@ export const deleteReview = catchAsyncError(async (req, res, next) => {
     success: true,
   });
 });
-
 
 //4.08.02
