@@ -40,6 +40,7 @@ const options = {
   cartIcon :true,
   CartIconElement:FaLuggageCart,
   profileIcon :true,
+  profileIconUrl:"/login",
   ProfileIconElement:RxAvatar
 
 };

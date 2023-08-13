@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { BsFillStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import ReviewCard from "./ReviewCard.jsx";
 import Loader from "../layout/Loader/Loader";
+import MetaData from "../layout/Hader/MetaData";
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const { singleProduct, loading } = useSelector(
@@ -55,6 +56,8 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <>
+        <MetaData title={`${singleProduct.name}--Ecommerce`}/>
+
           <div className="Product-body">
             <div className="Product-container">
               <div className="product-image">

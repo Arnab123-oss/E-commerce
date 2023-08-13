@@ -9,11 +9,9 @@ import crypto from "crypto";
 
 export const register = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
-
-  // const file = req.file;
-
-  if (!name || !email || !password)
-    //|| !file
+  const file = req.file;
+  console.log(file);
+  if (!name || !email || !password || !file)
     return next(new ErrorHandler("Please enter all field", 400));
 
   let user = await User.findOne({ email });
@@ -22,22 +20,23 @@ export const register = catchAsyncError(async (req, res, next) => {
 
   //upload file on cloudinary;
 
-  // const fileUri = getDataUri(file);
+  const fileUri = getDataUri(file);
 
-  // const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
+  const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
 
   user = await User.create({
     name,
     email,
     password,
     avatar: {
-      public_id: "this is a sample id",
-      url: "ProfilePicUrl",
+      public_id: mycloud.public_id,
+      url: mycloud.secure_url,
     },
   });
 
   sendToken(res, user, "Registered Successfully", 201);
 });
+
 
 //LogIn User
 
@@ -94,16 +93,14 @@ export const forgetPassword = catchAsyncError(async (req, res, next) => {
     "host"
   )}/password/reset/${resetToken}`;
 
-  
   const to = user.email;
   const from = process.env.SMTP_MAIL;
   const subject = "E-Commerce Password Recovery";
   const message = `Click on the link to reset your password ${url} ,If you have not requested
   then please ignore`;
 
-
   try {
-    await sendEmail({to, subject, message,from});
+    await sendEmail({ to, subject, message, from });
 
     res.status(200).json({
       success: true,
@@ -182,11 +179,10 @@ export const updatePassword = catchAsyncError(async (req, res, next) => {
 
   user.password = req.body.newPassword;
 
-  await user.save()
+  await user.save();
 
   sendToken(res, user, `Welcome back ${user.name}`, 200);
 });
-
 
 // Contact US
 
@@ -202,14 +198,13 @@ export const contact = catchAsyncError(async (req, res, next) => {
   const message = `I am ${name} and my Email is ${email}. \n${text}`;
   // console.log(from);
 
-  await sendEmail({to, subject, message,from});
+  await sendEmail({ to, subject, message, from });
 
   res.status(200).json({
     success: true,
     message: "Your message has been submitted successfully.",
   });
 });
-
 
 export const updateProfile = catchAsyncError(async (req, res, next) => {
   const { name, email } = req.body;
@@ -227,7 +222,6 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
   });
 });
 
-
 //Get All Users --- Admin
 
 export const getAllUsers = catchAsyncError(async (req, res, next) => {
@@ -239,7 +233,7 @@ export const getAllUsers = catchAsyncError(async (req, res, next) => {
   });
 });
 
-//Get single user 
+//Get single user
 
 export const getSingleUserDetails = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.params.id);
@@ -267,7 +261,7 @@ export const updateUserRole = catchAsyncError(async (req, res, next) => {
     success: true,
     message: "Role Updated",
   });
-})
+});
 
 //Delete USer
 

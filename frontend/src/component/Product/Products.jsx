@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
+import MetaData from "../layout/Hader/MetaData";
 const Products = () => {
   const dispatch = useDispatch();
   const {
@@ -64,6 +65,7 @@ const Products = () => {
         <Loader />
       ) : (
         <>
+        <MetaData title="Products--Ecommerce"/>
           <h2 className="productsHeading">Products</h2>
 
           <div className="products">
@@ -137,4 +139,3 @@ const Products = () => {
 export default Products;
 
 
-//7:18:14

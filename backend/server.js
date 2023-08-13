@@ -1,6 +1,7 @@
 import app from "./app.js";
 import dotenv from "dotenv";
 import { connectDatabase } from "./config/database.js";
+import cloudinary from "cloudinary";
 
 //Handling Uncaught Exception
 
@@ -14,6 +15,12 @@ process.on("uncaughtException", (err) => {
 dotenv.config({ path: "backend/config/config.env" });
 
 connectDatabase();
+
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLIENT_NAME,
+  api_key: process.env.CLOUDINARY_CLIENT_API,
+  api_secret: process.env.CLOUDINARY_CLIENT_SECRRET,
+});
 
 const srv = app.listen(process.env.PORT, () => {
   console.log(`Server is working on http://localhost:${process.env.PORT}`);

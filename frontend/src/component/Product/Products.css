@@ -13,7 +13,7 @@
   flex-wrap: wrap;
   padding: 0 5vmax;
   justify-content: center;
-  min-height: 30vh;
+  min-height: 54vh;
 }
 
 .paginationBox {
@@ -94,7 +94,6 @@
     position: static;
     margin: auto;
   }
-
   .page-link {
     font: 300 1.7vmax "Roboto";
   }
