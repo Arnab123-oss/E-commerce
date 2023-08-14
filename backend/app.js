@@ -3,7 +3,7 @@ import { errorMiddleware } from "./middleware/error.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import bodyParser from "body-parser";
-import fileUpload from "express-fileupload";
+// import fileUpload from "express-fileupload";
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // insteed of this
 //         extended: true,
 //       })
 //     );
-app.use(fileUpload());
+// app.use(fileUpload());
 
 //Routes import
 import product from "./routes/productRoute.js";

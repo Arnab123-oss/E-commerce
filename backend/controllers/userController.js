@@ -3,14 +3,17 @@ import { catchAsyncError } from "../middleware/catchAsyncErrors.js";
 import { User } from "../model/User.js";
 import { sendToken } from "../utils/sendToken.js";
 import { sendEmail } from "../utils/sendEmail.js";
+import cloudinary from "cloudinary";
 import crypto from "crypto";
-
+import getDataUri from "../utils/dataUri.js";
 //Register a user
 
 export const register = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
   const file = req.file;
-  console.log(file);
+
+ 
+
   if (!name || !email || !password || !file)
     return next(new ErrorHandler("Please enter all field", 400));
 

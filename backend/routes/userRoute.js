@@ -16,8 +16,9 @@ import {
 } from "../controllers/userController.js";
 import { authorizedAdmin, isAuthenticated } from "../middleware/auth.js";
 const router = express.Router();
+import singleUpload from "../middleware/multer.js";
 
-router.route("/register").post(register);
+router.route("/register").post(singleUpload,register);
 
 router.route("/login").post(login);
 
