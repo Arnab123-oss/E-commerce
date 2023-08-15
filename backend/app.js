@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true })); // insteed of this 
+app.use(bodyParser.urlencoded({ extended: true })); // insteed of this
 //code I have to check this code is run or not
 // app.use(
 //     express.urlencoded({

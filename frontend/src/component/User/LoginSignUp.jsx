@@ -16,7 +16,6 @@ const LoginSignUp = () => {
 
   const dispatch = useDispatch();
   const {
-    user: userDetails,
     loading,
     error,
     message,
@@ -45,7 +44,7 @@ const LoginSignUp = () => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
   };
-  const changeFileHandler = e => {
+  const changeFileHandler = (e) => {
     console.warn(e.target.files);
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -54,20 +53,19 @@ const LoginSignUp = () => {
       setImagePrev(reader.result);
       setImage(file);
     };
-  }
+  };
 
   const registerSubmit = (e) => {
     e.preventDefault();
 
-    const myForm =new FormData();
+    const myForm = new FormData();
 
-    myForm.append('name', name);
-    myForm.append('email', email);
-    myForm.append('password', password);
-    myForm.append('file', image);
+    myForm.append("name", name);
+    myForm.append("email", email);
+    myForm.append("password", password);
+    myForm.append("file", image);
 
     dispatch(register(myForm));
-  
   };
 
   const switchTabs = (e, tab) => {
@@ -140,7 +138,7 @@ const LoginSignUp = () => {
                     required
                     name="name"
                     value={name}
-                    onChange={e => setName(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div className="signUpEmail">
@@ -151,8 +149,7 @@ const LoginSignUp = () => {
                     required
                     name="email"
                     value={email}
-                    
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="signUpPassword">
@@ -163,7 +160,7 @@ const LoginSignUp = () => {
                     required
                     name="password"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
@@ -187,4 +184,3 @@ const LoginSignUp = () => {
 };
 
 export default LoginSignUp;
-

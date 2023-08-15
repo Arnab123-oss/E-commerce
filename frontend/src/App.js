@@ -13,10 +13,13 @@ import Search from "./component/Product/Search.jsx";
 import LoginSignUp from "./component/User/LoginSignUp";
 import { ProtectedRoute } from "protected-route-react";
 import { useSelector } from "react-redux";
+import { loadUser } from "./Redux/action/user";
+import UserOption from "./component/layout/Hader/UserOption.jsx"
+import Profile from "./component/User/Profile"
 
 function App() {
   const dispatch = useDispatch();
-  const { isAuthenticated,error,message } = useSelector((state) => state.user);
+  const { isAuthenticated,error,message,user } = useSelector((state) => state.user);
   useEffect(() => {
     WebFont.load({
       google: {
@@ -37,10 +40,17 @@ function App() {
     }
   }, [dispatch, error, message]);
 
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
+
   return (
     <Router>
       <Header />
+      {isAuthenticated && <UserOption user={user} />}
       <Routes>
+       
+         
         <Route path="/" element={<Home />} />
 
         <Route path="/product/:id" element={<ProductDetails />} />
@@ -59,6 +69,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/account" element={<Profile />} />
+
       </Routes>
       <Footer />
       <Toaster />
