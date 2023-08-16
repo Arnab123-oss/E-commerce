@@ -19,7 +19,6 @@ const LoginSignUp = () => {
     loading,
     error,
     message,
-    isAuthenticated,
   } = useSelector((state) => state.user);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -43,6 +42,8 @@ const LoginSignUp = () => {
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
+  
+ 
   };
   const changeFileHandler = (e) => {
     console.warn(e.target.files);

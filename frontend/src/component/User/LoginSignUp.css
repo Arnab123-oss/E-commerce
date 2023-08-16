@@ -157,7 +157,7 @@
   }
 /* This is responsive for phone , I have to do responsive for device whih have more than 600 px and less than 900 px
 it is not a big deal I have to just change the properties of same clases. */
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 920px) {
     .LoginSignUpContainer {
       background-color: white;
     }
@@ -192,8 +192,9 @@ it is not a big deal I have to just change the properties of same clases. */
       font: 500 1.8vmax "Gill Sans";
     }
     #registerImage > img {
-      width: 8vmax;
-      border-radius: 100%;
+      width: 6vmax;
+      height: 6vmax;
+      border-radius: 50%;
     }
   
     #registerImage > input::file-selector-button {

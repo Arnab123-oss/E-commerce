@@ -67,7 +67,7 @@ const UserOption = ({ user }) => {
         icon={
           <img
             className="speedDialIcon"
-            src={user.avatar.url ? user.avatar.url : "./logo192.png"}
+            src={user.avatar.url ? user.avatar.url : "/logo192.png"}
             alt=""
           />
         }
