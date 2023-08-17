@@ -70,3 +70,26 @@ export const userReducer = createReducer(
     },
   }
 );
+
+export const profileReducer = createReducer(
+  {},
+  {
+    updateProfileRequest: (state) => {
+      state.loading = true;
+    },
+    updateProfileSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    },
+    updateProfileFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
+    clearMessage: (state) => {
+      state.message = null;
+    },
+  }
+);

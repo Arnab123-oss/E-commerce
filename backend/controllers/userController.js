@@ -6,13 +6,13 @@ import { sendEmail } from "../utils/sendEmail.js";
 import cloudinary from "cloudinary";
 import crypto from "crypto";
 import getDataUri from "../utils/dataUri.js";
+import { Console } from "console";
 //Register a user
 
 export const register = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
+  
   const file = req.file;
-
- 
 
   if (!name || !email || !password || !file)
     return next(new ErrorHandler("Please enter all field", 400));
@@ -39,7 +39,6 @@ export const register = catchAsyncError(async (req, res, next) => {
 
   sendToken(res, user, "Registered Successfully", 201);
 });
-
 
 //LogIn User
 
@@ -156,6 +155,16 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
   });
 });
 
+//get All User
+export const getAllUsers = catchAsyncError(async (req, res, next) => {
+  const users = await User.find({});
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
 //Get User Details
 
 export const getUserDetails = catchAsyncError(async (req, res, next) => {
@@ -211,28 +220,34 @@ export const contact = catchAsyncError(async (req, res, next) => {
 
 export const updateProfile = catchAsyncError(async (req, res, next) => {
   const { name, email } = req.body;
-
-  const user = await User.findById(req.user._id);
+  console.log(name,email)
 
   if (name) user.name = name;
+  
   if (email) user.email = email;
+  const user = await User.findById(req.user._id);
 
-  await user.save();
+  const file = req.file;
+  if (file) {
+
+    const fileUri = getDataUri(file);
+
+    const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
+
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+    user.avatar = {
+      public_id: mycloud.public_id,
+      url: mycloud.secure_url,
+    };
+  }
+
+ await user.save();
 
   res.status(200).json({
     success: true,
-    message: "Profile Updated Successfully",
-  });
-});
-
-//Get All Users --- Admin
-
-export const getAllUsers = catchAsyncError(async (req, res, next) => {
-  const users = await User.find({});
-
-  res.status(200).json({
-    success: true,
-    users,
+    user,
+    message: "Fuck You",
   });
 });
 

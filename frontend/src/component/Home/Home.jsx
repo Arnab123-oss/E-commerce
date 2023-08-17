@@ -47,7 +47,7 @@ const Home = () => {
           <div className="container" id="container">
             {products &&
               products.map((product) => (
-                <ProductCard key={product._id} product={product} />
+                <ProductCard key={product._id} product={product} title="E-COMMERCE"/>
               ))}
           </div>
         </>

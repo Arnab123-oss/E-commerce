@@ -4,7 +4,7 @@ import Header from "./component/layout/Hader/Header";
 import Footer from "./component/layout/Footer/Footer.jsx";
 import Home from "./component/Home/Home";
 import { useDispatch } from "react-redux";
-import { Toaster,toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import WebFont from "webfontloader";
 import { useEffect } from "react";
 import ProductDetails from "./component/Product/ProductDetails";
@@ -14,12 +14,15 @@ import LoginSignUp from "./component/User/LoginSignUp";
 import { ProtectedRoute } from "protected-route-react";
 import { useSelector } from "react-redux";
 import { loadUser } from "./Redux/action/user";
-import UserOption from "./component/layout/Hader/UserOption.jsx"
-import Profile from "./component/User/Profile"
+import UserOption from "./component/layout/Hader/UserOption.jsx";
+import Profile from "./component/User/Profile";
+import UpdateProfile from "./component/User/UpdateProfile.jsx";
 
 function App() {
   const dispatch = useDispatch();
-  const { isAuthenticated,error,message,user } = useSelector((state) => state.user);
+  const { isAuthenticated, error, message, user } = useSelector(
+    (state) => state.user
+  );
   useEffect(() => {
     WebFont.load({
       google: {
@@ -49,11 +52,9 @@ function App() {
       <Header />
       {isAuthenticated && <UserOption user={user} />}
       <Routes>
-       
-         
         <Route path="/" element={<Home />} />
 
-        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="products/product/:id" element={<ProductDetails />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
 
@@ -70,7 +71,14 @@ function App() {
           }
         />
         <Route path="/account" element={<Profile />} />
-
+        <Route
+          path="/me/update"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <UpdateProfile />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
       <Toaster />
