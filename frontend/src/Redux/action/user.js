@@ -18,7 +18,6 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const register = (userdata) => async (dispatch) => {
-  console.log(userdata)
   try {
     dispatch({ type: "registerRequest" });
 
@@ -58,18 +57,24 @@ export const logOut = () => async (dispatch) => {
   }
 };
 
+
 export const updateProfile = (userData) => async (dispatch) => {
-  console.log(userData)
   try {
     dispatch({ type: "updateProfileRequest" });
 
     const config = {
-      headers: { "Content-Type": "multipart/form-data", authorization: localStorage.getItem("authToken"),},
-};
+      headers: {
+        "content-type": "multipart/form-data",
+        "authorization": localStorage.getItem("authToken")
+      }
+    };
 
-    const { data } = await axios.put(`${server}/me/update`, userData, config);
-     console.log(data);
-    dispatch({ type: "updateProfileSuccess", payload: data.success });
+    const { data } = await axios.put(
+      `${server}/me/update`,
+      userData,
+      config
+    );
+    dispatch({ type: "updateProfileSuccess", payload: data.message });
   } catch (error) {
     dispatch({
       type: "updateProfileFail",

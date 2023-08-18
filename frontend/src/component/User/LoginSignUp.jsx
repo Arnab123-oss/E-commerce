@@ -65,7 +65,7 @@ const LoginSignUp = () => {
     myForm.append("email", email);
     myForm.append("password", password);
     myForm.append("file", image);
-
+    console.log(myForm)
     dispatch(register(myForm));
   };
 

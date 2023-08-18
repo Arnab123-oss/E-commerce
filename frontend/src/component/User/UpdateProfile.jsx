@@ -32,15 +32,15 @@ const UpdateProfile = () => {
     };
   };
 
-  const updateProfileSubmit = (e) => {
+  const updateProfileSubmit =  (e) => {
     e.preventDefault();
 
     const myForm = new FormData();
-
     myForm.append("name", name);
     myForm.append("email", email);
     myForm.append("file", image);
 
+  
     dispatch(updateProfile(myForm));
   };
 

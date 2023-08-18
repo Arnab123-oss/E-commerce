@@ -6,12 +6,12 @@ import { sendEmail } from "../utils/sendEmail.js";
 import cloudinary from "cloudinary";
 import crypto from "crypto";
 import getDataUri from "../utils/dataUri.js";
-import { Console } from "console";
+
 //Register a user
 
 export const register = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
-  
+
   const file = req.file;
 
   if (!name || !email || !password || !file)
@@ -220,16 +220,17 @@ export const contact = catchAsyncError(async (req, res, next) => {
 
 export const updateProfile = catchAsyncError(async (req, res, next) => {
   const { name, email } = req.body;
-  console.log(name,email)
-
-  if (name) user.name = name;
-  
-  if (email) user.email = email;
-  const user = await User.findById(req.user._id);
+ 
 
   const file = req.file;
-  if (file) {
 
+  const user = await User.findById(req.user._id);
+
+  if (name) user.name = name;
+  if (email) user.email = email;
+
+  //cloudinary
+  if (file) {
     const fileUri = getDataUri(file);
 
     const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
@@ -242,14 +243,47 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
     };
   }
 
- await user.save();
+  await user.save();
 
   res.status(200).json({
     success: true,
-    user,
-    message: "Fuck You",
+    message: "Profile Updated Successfully",
   });
 });
+
+// export const updateProfile = catchAsyncError(async (req, res, next) => {
+//   const { name, email } = req.body;
+//   const file = req.file;
+
+//   console.log(name,email)
+
+//   if (name) user.name = name;
+
+//   if (email) user.email = email;
+//   const user = await User.findById(req.user._id);
+
+//   if (file) {
+
+//     const fileUri = getDataUri(file);
+
+//     const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
+
+//     await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+//     user.avatar = {
+//       public_id: mycloud.public_id,
+//       url: mycloud.secure_url,
+//     };
+//   }
+
+//  await user.save();
+
+//   res.status(200).json({
+//     success: true,
+//     user,
+//     message: "Fuck You",
+//   });
+// });
 
 //Get single user
 

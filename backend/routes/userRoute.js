@@ -26,7 +26,7 @@ router.route("/me").get(isAuthenticated, getUserDetails);
 
 router.route("/password/update").put(isAuthenticated, updatePassword);
 
-router.route("/me/update").put(isAuthenticated, updateProfile);
+router.route("/me/update").put(isAuthenticated, singleUpload, updateProfile);
 
 router.route("/password/forgot").post(forgetPassword);
 
@@ -45,3 +45,4 @@ router
   .delete(isAuthenticated, authorizedAdmin,deleteUser);
 
 export default router;
+ 
