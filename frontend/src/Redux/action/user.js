@@ -57,7 +57,6 @@ export const logOut = () => async (dispatch) => {
   }
 };
 
-
 export const updateProfile = (userData) => async (dispatch) => {
   try {
     dispatch({ type: "updateProfileRequest" });
@@ -65,15 +64,11 @@ export const updateProfile = (userData) => async (dispatch) => {
     const config = {
       headers: {
         "content-type": "multipart/form-data",
-        "authorization": localStorage.getItem("authToken")
-      }
+        authorization: localStorage.getItem("authToken"),
+      },
     };
 
-    const { data } = await axios.put(
-      `${server}/me/update`,
-      userData,
-      config
-    );
+    const { data } = await axios.put(`${server}/me/update`, userData, config);
     dispatch({ type: "updateProfileSuccess", payload: data.message });
   } catch (error) {
     dispatch({
@@ -82,3 +77,63 @@ export const updateProfile = (userData) => async (dispatch) => {
     });
   }
 };
+
+export const changePassword = (oldPassword, newPassword, confirmPassword) => async (dispatch) => {
+  console.log(oldPassword, newPassword, confirmPassword)
+    try {
+      dispatch({ type: "changePasswordRequest" });
+      const config = {
+        headers: {
+          "content-type": "application/json",
+          authorization: localStorage.getItem("authToken"),
+        }
+      };
+
+      const { data } = await axios.put(
+        `${server}/password/update`,
+        { oldPassword, newPassword, confirmPassword },
+        config
+      );
+      dispatch({ type: "changePasswordSuccess", payload: data.message });
+    } catch (error) {
+      dispatch({
+        type: "changePasswordFail",
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+  export const forgetPassword = email => async dispatch => {
+    try {
+      dispatch({ type: 'forgetPasswordRequest' });
+  
+      const { data } = await axios.post(
+        `${server}/password/forgot`,
+        { email },
+        { headers: { 'content-type': 'application/json' }, withCredentials: true }
+      );
+      dispatch({ type: 'forgetPasswordSuccess', payload: data.message });
+    } catch (error) {
+      dispatch({
+        type: 'updateProfilePictureFail',
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+  export const resetPassword = (token, password,confirmPassword) => async dispatch => {
+    try {
+      dispatch({ type: 'resetPasswordRequest' });
+      const { data } = await axios.put(
+        `${server}/password/reset/${token}`,
+        { password ,confirmPassword},
+        { headers: { 'content-type': 'application/json' }, withCredentials: true }
+      );
+      dispatch({ type: 'resetPasswordSuccess', payload: data.message });
+    } catch (error) {
+      dispatch({
+        type: 'resetPasswordFail',
+        payload: error.response.data.message,
+      });
+    }
+  };

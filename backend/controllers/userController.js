@@ -137,7 +137,7 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Token is invalid or has been expired", 401));
 
   if (req.body.password !== req.body.confirmPassword) {
-    return next(new ErrorHandler("Password does not password", 400));
+    return next(new ErrorHandler("Password does not match with ConfirmPassword", 400));
   }
 
   user.password = req.body.password;
@@ -193,7 +193,7 @@ export const updatePassword = catchAsyncError(async (req, res, next) => {
 
   await user.save();
 
-  sendToken(res, user, `Welcome back ${user.name}`, 200);
+  sendToken(res, user, `${user.name} Successfully Updated your password`, 200);
 });
 
 // Contact US

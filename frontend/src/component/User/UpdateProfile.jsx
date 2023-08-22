@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./UpdateProfile.css";
 import Loader from "../layout/Loader/Loader";
-import { Link } from "react-router-dom";
 import { CiMail } from "react-icons/ci";
 import { MdFace } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -112,7 +111,7 @@ const UpdateProfile = () => {
                 </div>
                 <input
                   type="submit"
-                  value="updateProfile"
+                  value="Update"
                   className="updateProfileBtn"
                 />
               </form>

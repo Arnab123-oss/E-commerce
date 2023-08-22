@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./component/layout/Hader/Header";
-import Footer from "./component/layout/Footer/Footer.jsx";
+import Footer from "./component/layout/Footer/Footer";
 import Home from "./component/Home/Home";
 import { useDispatch } from "react-redux";
 import { Toaster, toast } from "react-hot-toast";
@@ -14,9 +14,12 @@ import LoginSignUp from "./component/User/LoginSignUp";
 import { ProtectedRoute } from "protected-route-react";
 import { useSelector } from "react-redux";
 import { loadUser } from "./Redux/action/user";
-import UserOption from "./component/layout/Hader/UserOption.jsx";
+import UserOption from "./component/layout/Hader/UserOption";
 import Profile from "./component/User/Profile";
-import UpdateProfile from "./component/User/UpdateProfile.jsx";
+import UpdateProfile from "./component/User/UpdateProfile";
+import UpdatePassword from "./component/User/UpdatePassword"
+import ForgotPassword from "./component/User/ForgotPassword"
+import ResetPassword from "./component/User/ResetPassword.jsx"
 
 function App() {
   const dispatch = useDispatch();
@@ -79,6 +82,18 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/password/update"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <UpdatePassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/password/forgot" element={<ForgotPassword />} />
+        <Route path="/password/reset/:token" element={<ResetPassword />} />
+
+
       </Routes>
       <Footer />
       <Toaster />
