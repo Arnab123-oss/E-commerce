@@ -91,9 +91,7 @@ export const forgetPassword = catchAsyncError(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   //send Token Via email
-  const url = `${req.protocol}://${req.get(
-    "host"
-  )}/password/reset/${resetToken}`;
+  const url = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
   const to = user.email;
   const from = process.env.SMTP_MAIL;
@@ -137,7 +135,9 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Token is invalid or has been expired", 401));
 
   if (req.body.password !== req.body.confirmPassword) {
-    return next(new ErrorHandler("Password does not match with ConfirmPassword", 400));
+    return next(
+      new ErrorHandler("Password does not match with ConfirmPassword", 400)
+    );
   }
 
   user.password = req.body.password;
@@ -220,7 +220,6 @@ export const contact = catchAsyncError(async (req, res, next) => {
 
 export const updateProfile = catchAsyncError(async (req, res, next) => {
   const { name, email } = req.body;
- 
 
   const file = req.file;
 

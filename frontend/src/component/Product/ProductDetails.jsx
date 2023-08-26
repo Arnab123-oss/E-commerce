@@ -8,6 +8,11 @@ import { BsFillStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import ReviewCard from "./ReviewCard.jsx";
 import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/Hader/MetaData";
+import { addToCart } from "../../Redux/action/cart";
+import { toast } from "react-hot-toast";
+
+
+
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const { singleProduct, loading } = useSelector(
@@ -16,6 +21,27 @@ const ProductDetails = () => {
   const params = useParams();
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+
+  const increaseQuantity = () => {
+    if (singleProduct.Stock <= quantity) return;
+
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
+  const decreaseQuantity = () => {
+    const qty = quantity - 1;
+    setQuantity(qty);
+
+    if (quantity === 1) {
+      setQuantity(1);
+    }
+  };
+
+  const addCartHandler = () => {
+    dispatch(addToCart(params.id, quantity));
+    toast.success("Items Added To Cart")
+  };
 
   const carouselInfiniteScroll = () => {
     if (currentIndex === singleProduct.images.length - 1) {
@@ -56,7 +82,7 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <>
-        <MetaData title={`${singleProduct.name}--Ecommerce`}/>
+          <MetaData title={`${singleProduct.name}--Ecommerce`} />
 
           <div className="Product-body">
             <div className="Product-container">
@@ -124,19 +150,19 @@ const ProductDetails = () => {
                     <h5>color</h5>
                     <ul>
                       <li>
-                        <a  className="colors color-bdot1 active" />
+                        <a className="colors color-bdot1 active" />
                       </li>
                       <li>
-                        <a  className="colors color-bdot2" />
+                        <a className="colors color-bdot2" />
                       </li>
                       <li>
                         <a className="colors color-bdot3" />
                       </li>
                       <li>
-                        <a  className="colors color-bdot4" />
+                        <a className="colors color-bdot4" />
                       </li>
                       <li>
-                        <a  className="colors color-bdot5" />
+                        <a className="colors color-bdot5" />
                       </li>
                     </ul>
                   </div>
@@ -148,13 +174,15 @@ const ProductDetails = () => {
                   </div>
                   <div className="qty">
                     <h5>qty</h5>
-                    <a href="#!" className="option">
-                      (1)
-                    </a>
+                    <div className="detailsBlock-3-1-1">
+                      <button onClick={decreaseQuantity}>-</button>
+                      <input readOnly type="number" value={quantity} />
+                      <button onClick={increaseQuantity}>+</button>
+                    </div>
                   </div>
                 </div>
                 <div className="Product-footer">
-                  <button type="button">
+                  <button type="button" onClick={addCartHandler}>
                     <img
                       src="http://co0kie.github.io/codepen/nike-product-page/cart.png"
                       alt=""
