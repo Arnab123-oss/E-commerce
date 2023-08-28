@@ -23,6 +23,12 @@ const initialState = {
           cartItems: [...state.cartItems, item]
         };
       }
+    },
+    removeCartItem:(state,action) => {
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((i) => i.product !== action.payload),
+      };
     }
   });
   
