@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./LoginSignUp.css";
 import Loader from "../layout/Loader/Loader";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { CiMail } from "react-icons/ci";
 import { BiLockOpen } from "react-icons/bi";
 import { MdFace } from "react-icons/md";

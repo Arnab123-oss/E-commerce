@@ -3,23 +3,16 @@ import "./Cart.css";
 import CartItemCard from "./CartItemCard";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../../Redux/action/cart";
+import { useNavigate } from "react-router-dom";
 
-import {MdRemoveShoppingCart} from "react-icons/md"
+import { MdRemoveShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { cartItems } = useSelector((state) => state.cart);
-
-  const item = {
-    product: "gfg1245856",
-    name: "Fuck",
-    price: 12452,
-    images: "sample image",
-    stock: 31,
-    quantity: 20,
-  };
 
   const increaseQuantity = (id, quantity, stock) => {
     const newQty = quantity + 1;
@@ -40,15 +33,19 @@ const Cart = () => {
   const deleteCartItems = (id) => {
     dispatch(removeFromCart(id));
   };
+  const checkOutHandler = () => {
+    navigate("/login?redirect=shipping")
+  };
+
   return (
     <>
       {cartItems.length === 0 ? (
         <div className="emptyCart">
-        <MdRemoveShoppingCart />
+          <MdRemoveShoppingCart />
 
-        <p>No Product in Your Cart</p>
-        <Link to="/products">View Products</Link>
-      </div>
+          <p>No Product in Your Cart</p>
+          <Link to="/products">View Products</Link>
+        </div>
       ) : (
         <>
           <div className="cartPage">
@@ -94,11 +91,14 @@ const Cart = () => {
               <div></div>
               <div className="cartGrossProfitBox">
                 <p>Gross Total</p>
-                <p>{`₹${item.quantity * item.price}`}</p>
+                <p>{`₹${cartItems.reduce(
+                  (acc, item) => acc + item.quantity * item.price,
+                  0
+                )}`}</p>
               </div>
               <div></div>
               <div className="checkOutBtn">
-                <button>Check Out</button>
+                <button onClick={checkOutHandler}>Check Out</button>
               </div>
             </div>
           </div>
@@ -109,3 +109,5 @@ const Cart = () => {
 };
 
 export default Cart;
+
+//10:38:42 I have to check the 2 min previous video

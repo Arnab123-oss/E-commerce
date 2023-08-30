@@ -10,18 +10,20 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import { logOut } from "../../../Redux/action/user";
 const UserOption = ({ user }) => {
   const [open, setOpen] = useState("");
   const navigate = useNavigate();
  const dispatch = useDispatch();
+ const { cartItems } = useSelector((state) => state.cart);
+
   const options = [
     { icon: <ListAltIcon />, name: "Orders", func: orders },
     { icon: <PersonIcon />, name: "Profile", func: account },
     {
-      icon: <ShoppingCartIcon />,
-      name: "Cart",
+      icon: <ShoppingCartIcon style={{color:cartItems.length>0?"tomato":"unset"}}/>,
+      name: `Cart(${cartItems.length})`,
       func: cart,
     },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
