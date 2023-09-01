@@ -17,10 +17,11 @@ import { loadUser } from "./Redux/action/user";
 import UserOption from "./component/layout/Hader/UserOption";
 import Profile from "./component/User/Profile";
 import UpdateProfile from "./component/User/UpdateProfile";
-import UpdatePassword from "./component/User/UpdatePassword"
-import ForgotPassword from "./component/User/ForgotPassword"
-import ResetPassword from "./component/User/ResetPassword.jsx"
-import Cart from "./component/Cart/Cart"
+import UpdatePassword from "./component/User/UpdatePassword";
+import ForgotPassword from "./component/User/ForgotPassword";
+import ResetPassword from "./component/User/ResetPassword.jsx";
+import Cart from "./component/Cart/Cart";
+import Shipping from "./component/Cart/Shipping";
 
 function App() {
   const dispatch = useDispatch();
@@ -66,10 +67,8 @@ function App() {
         <Route
           path="/login"
           element={
-            <ProtectedRoute
-              isAuthenticated={!isAuthenticated}
-              redirect="/account"
-            >
+            <ProtectedRoute isAuthenticated={!isAuthenticated}
+            redirect="/account"> 
               <LoginSignUp />
             </ProtectedRoute>
           }
@@ -94,9 +93,14 @@ function App() {
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
         <Route path="/Cart" element={<Cart />} />
-
-
-
+        <Route
+          path="/shipping"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Shipping />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
       <Toaster />

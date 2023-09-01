@@ -11,9 +11,8 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { isAuthenticated } = useSelector((state) => state.user);
   const { cartItems } = useSelector((state) => state.cart);
-
   const increaseQuantity = (id, quantity, stock) => {
     const newQty = quantity + 1;
     if (stock <= quantity) {
@@ -34,7 +33,7 @@ const Cart = () => {
     dispatch(removeFromCart(id));
   };
   const checkOutHandler = () => {
-    navigate("/login?redirect=shipping")
+    navigate("/login?redirect=shipping");
   };
 
   return (
@@ -98,7 +97,7 @@ const Cart = () => {
               </div>
               <div></div>
               <div className="checkOutBtn">
-                <button onClick={checkOutHandler}>Check Out</button>
+                <Link to={isAuthenticated ? "/shipping" : "/login"}> Check Out </Link>
               </div>
             </div>
           </div>

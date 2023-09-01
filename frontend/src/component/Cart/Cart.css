@@ -109,16 +109,17 @@
     display: flex;
     justify-content: flex-end;
   }
-  .checkOutBtn > button {
+  .checkOutBtn > a {
     background-color: tomato;
     color: white;
     border: none;
     padding: 0.8vmax 4vmax;
-    width: 50%;
+    width: 25%;
     font: 300 0.8vmax "Roboto";
     margin: 1vmax 4vmax;
     cursor: pointer;
     border-radius: 30px;
+    text-align: center;
   }
 
   @media screen and (max-width: 600px) {
@@ -168,7 +169,7 @@
       font: 300 2vmax "Roboto";
     }
   
-    .checkOutBtn > button {
+    .checkOutBtn > a {
       padding: 2vmax 4vmax;
       width: 100%;
       font: 300 2vmax "Roboto";

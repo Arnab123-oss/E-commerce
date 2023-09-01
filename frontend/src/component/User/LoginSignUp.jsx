@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./LoginSignUp.css";
 import Loader from "../layout/Loader/Loader";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate,useLocation } from "react-router-dom";
 import { CiMail } from "react-icons/ci";
 import { BiLockOpen } from "react-icons/bi";
 import { MdFace } from "react-icons/md";
@@ -15,11 +15,9 @@ const LoginSignUp = () => {
   const switcherTab = useRef(null);
 
   const dispatch = useDispatch();
-  const {
-    loading,
-    error,
-    message,
-  } = useSelector((state) => state.user);
+  const { loading, error, message } = useSelector(
+    (state) => state.user
+  );
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [name, setName] = useState();
@@ -27,6 +25,7 @@ const LoginSignUp = () => {
   const [password, setPassword] = useState();
   const [imagePreview, setImagePrev] = useState("/logo192.png");
   const [image, setImage] = useState();
+
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -37,13 +36,12 @@ const LoginSignUp = () => {
       toast.success(message);
       dispatch({ type: "clearMessage" });
     }
-  }, [dispatch, error, message]);
+
+  }, [dispatch, error, message,]);
 
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(loginEmail, loginPassword));
-  
- 
   };
   const changeFileHandler = (e) => {
     console.warn(e.target.files);
@@ -65,7 +63,7 @@ const LoginSignUp = () => {
     myForm.append("email", email);
     myForm.append("password", password);
     myForm.append("file", image);
-    console.log(myForm)
+    console.log(myForm);
     dispatch(register(myForm));
   };
 
