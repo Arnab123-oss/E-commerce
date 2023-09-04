@@ -4,6 +4,9 @@ const initialState = {
   cartItems: localStorage.getItem("itemsInCart")
     ? JSON.parse(localStorage.getItem("itemsInCart"))
     : [],
+  shippingInfo: localStorage.getItem("shippingInfo")
+    ? JSON.parse(localStorage.getItem("shippingInfo"))
+    : {},
 };
 
 export const cartReducer = createReducer(initialState, {
