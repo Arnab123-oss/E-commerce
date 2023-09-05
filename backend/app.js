@@ -4,6 +4,9 @@ import cookieparser from "cookie-parser";
 import cors from "cors";
 // import bodyParser from "body-parser";
 // import fileUpload from "express-fileupload";
+import dotenv from "dotenv";
+
+dotenv.config({ path: "backend/config/config.env" });
 
 const app = express();
 
@@ -37,10 +40,14 @@ app.use(cors({
 import product from "./routes/productRoute.js";
 import user from "./routes/userRoute.js";
 import order from "./routes/orderRoute.js";
+import payment from "./routes/paymentRoute.js";
+
 
 app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
+app.use("/api/v1", payment);
+
 
 //middleware for error
 

@@ -6,13 +6,14 @@ import Home from "./component/Home/Home";
 import { useDispatch } from "react-redux";
 import { Toaster, toast } from "react-hot-toast";
 import WebFont from "webfontloader";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProductDetails from "./component/Product/ProductDetails";
 import Products from "./component/Product/Products";
 import Search from "./component/Product/Search.jsx";
 import LoginSignUp from "./component/User/LoginSignUp";
 import { ProtectedRoute } from "protected-route-react";
 import { useSelector } from "react-redux";
+import axios from "axios";
 import { loadUser } from "./Redux/action/user";
 import UserOption from "./component/layout/Hader/UserOption";
 import Profile from "./component/User/Profile";
@@ -23,6 +24,7 @@ import ResetPassword from "./component/User/ResetPassword.jsx";
 import Cart from "./component/Cart/Cart";
 import Shipping from "./component/Cart/Shipping";
 import ConfirmOrder from "./component/Cart/ConfirmOrder";
+import Payment from "./component/Cart/Payment";
 
 
 function App() {
@@ -30,6 +32,20 @@ function App() {
   const { isAuthenticated, error, message, user } = useSelector(
     (state) => state.user
   );
+
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  const getStripeApiKey = async () => {
+    const config = {
+      headers: {
+        authorization: localStorage.getItem("authToken"),
+      },
+    };
+    const { data } = await axios.get("/api/v1/stripeapikey", config);
+
+    setStripeApiKey(data.stripeApiKey);
+  };
+
   useEffect(() => {
     WebFont.load({
       google: {
@@ -48,6 +64,8 @@ function App() {
       toast.success(message);
       dispatch({ type: "clearMessage" });
     }
+
+    getStripeApiKey();
   }, [dispatch, error, message]);
 
   useEffect(() => {
@@ -69,8 +87,10 @@ function App() {
         <Route
           path="/login"
           element={
-            <ProtectedRoute isAuthenticated={!isAuthenticated}
-            redirect="/account"> 
+            <ProtectedRoute
+              isAuthenticated={!isAuthenticated}
+              redirect="/account"
+            >
               <LoginSignUp />
             </ProtectedRoute>
           }
@@ -103,11 +123,20 @@ function App() {
             </ProtectedRoute>
           }
         />
-             <Route
+        <Route
           path="/order/confirm"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <ConfirmOrder />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/process/payment"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Payment/>
             </ProtectedRoute>
           }
         />

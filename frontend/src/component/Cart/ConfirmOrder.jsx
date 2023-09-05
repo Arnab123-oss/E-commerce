@@ -117,4 +117,3 @@ const ConfirmOrder = () => {
 
 export default ConfirmOrder;
 
-//11:10:37
