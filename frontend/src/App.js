@@ -25,6 +25,11 @@ import Cart from "./component/Cart/Cart";
 import Shipping from "./component/Cart/Shipping";
 import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import Payment from "./component/Cart/Payment";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+// import { server } from "./Redux/store";
+import OrderSuccess from "./component/Cart/OrderSuccess";
+import MyOrders from "./component/Order/MyOrders";
 
 
 function App() {
@@ -41,8 +46,7 @@ function App() {
         authorization: localStorage.getItem("authToken"),
       },
     };
-    const { data } = await axios.get("/api/v1/stripeapikey", config);
-
+    const { data } = await axios.get(`/api/v1/stripeapikey`, config);
     setStripeApiKey(data.stripeApiKey);
   };
 
@@ -131,15 +135,35 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+        {stripeApiKey && (
+          <Route
+            path="/process/payment"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <Elements stripe={loadStripe(stripeApiKey)}>
+                  <Payment />
+                </Elements>
+              </ProtectedRoute>
+            }
+          />
+        )}
         <Route
-          path="/process/payment"
+          path="/success"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <Payment/>
+              <OrderSuccess />
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/orders/me"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <MyOrders />
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
       <Footer />
       <Toaster />
@@ -148,3 +172,6 @@ function App() {
 }
 
 export default App;
+
+
+//11:43:33 load user problem solving part

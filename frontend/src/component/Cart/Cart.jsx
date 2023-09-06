@@ -14,6 +14,7 @@ const Cart = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
   const { cartItems } = useSelector((state) => state.cart);
   const increaseQuantity = (id, quantity, stock) => {
+    console.log("fuck");
     const newQty = quantity + 1;
     if (stock <= quantity) {
       return;
@@ -22,6 +23,7 @@ const Cart = () => {
   };
 
   const decreaseQuantity = (id, quantity) => {
+    console.log("fuck");
     const newQty = quantity - 1;
     if (1 >= quantity) {
       return;
@@ -97,7 +99,10 @@ const Cart = () => {
               </div>
               <div></div>
               <div className="checkOutBtn">
-                <Link to={isAuthenticated ? "/shipping" : "/login"}> Check Out </Link>
+                <Link to={isAuthenticated ? "/shipping" : "/login"}>
+                  {" "}
+                  Check Out{" "}
+                </Link>
               </div>
             </div>
           </div>

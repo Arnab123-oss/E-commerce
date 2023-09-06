@@ -59,8 +59,8 @@ const schema = new mongoose.Schema({
   },
   paymentMethod: {
     type: String,
-    enum: ["COD", "Online"],
-    default: "COD",
+    enum: ["Card", "UPI"],
+    default: "Card",
   },
   paymentInfo: {
     id: {
@@ -99,6 +99,7 @@ const schema = new mongoose.Schema({
   },
   orderStatus: {
     type: String,
+    required: true,
     enum: ["Preparing", "Shipped", "Delivered"],
     default: "Preparing",
   },

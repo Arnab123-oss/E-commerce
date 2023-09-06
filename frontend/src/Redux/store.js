@@ -5,14 +5,17 @@ import {
 } from "./Reducer/productReducer";
 import { profileReducer, userReducer } from "./Reducer/userReducer";
 import { cartReducer } from "./Reducer/cartReducer";
+import { myOrderReducer, newOrderReducer } from "./Reducer/orderReducer";
 
 const store = configureStore({
   reducer: {
     product: productReducer,
     productDetails: productDetailsReducer,
     user: userReducer,
-    profile:profileReducer,
-    cart:cartReducer
+    profile: profileReducer,
+    cart: cartReducer,
+    order: newOrderReducer,
+    myOrders: myOrderReducer,
   },
 });
 
