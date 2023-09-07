@@ -30,6 +30,7 @@ import { loadStripe } from "@stripe/stripe-js";
 // import { server } from "./Redux/store";
 import OrderSuccess from "./component/Cart/OrderSuccess";
 import MyOrders from "./component/Order/MyOrders";
+import MyOrdersDetails from "./component/Order/MyOrdersDetails";
 
 
 function App() {
@@ -163,7 +164,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+        <Route
+          path="/order/:id"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <MyOrdersDetails />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
       <Toaster />
@@ -172,6 +180,5 @@ function App() {
 }
 
 export default App;
-
 
 //11:43:33 load user problem solving part

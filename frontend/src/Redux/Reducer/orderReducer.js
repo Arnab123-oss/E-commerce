@@ -60,3 +60,26 @@ export const myOrderReducer = createReducer(
       },
     }
   );
+
+  export const orderDetailsReducer = createReducer(
+    { order: {} },
+    {
+      orderDetailsRequest: (state) => {
+        state.loading = true;
+      },
+      orderDetailsSuccess: (state, action) => {
+        state.loading = false;
+        state.order = action.payload;
+      },
+      orderDetailsFail: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+      clearError: (state) => {
+        state.error = null;
+      },
+      clearMessage: (state) => {
+        state.message = null;
+      },
+    }
+  );

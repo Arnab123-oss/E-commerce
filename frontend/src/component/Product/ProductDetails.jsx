@@ -11,8 +11,6 @@ import MetaData from "../layout/Hader/MetaData";
 import { addToCart } from "../../Redux/action/cart";
 import { toast } from "react-hot-toast";
 
-
-
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const { singleProduct, loading } = useSelector(
@@ -40,7 +38,7 @@ const ProductDetails = () => {
 
   const addCartHandler = () => {
     dispatch(addToCart(params.id, quantity));
-    toast.success("Items Added To Cart")
+    toast.success("Items Added To Cart");
   };
 
   const carouselInfiniteScroll = () => {
@@ -182,21 +180,22 @@ const ProductDetails = () => {
                   </div>
                 </div>
                 <div className="Product-footer">
-                  <button type="button" onClick={addCartHandler}>
-                    <img
+                  <button
+                    type="button"
+                    disabled={singleProduct.Stock < 1 ? true : false}
+                    onClick={addCartHandler}
+                  >
+                    {/* <img
                       src="http://co0kie.github.io/codepen/nike-product-page/cart.png"
                       alt=""
-                    />
+                    /> */}
                     <span>add to cart</span>
                   </button>
-                  {/* <button type="button">
-              <img
-                src="http://co0kie.github.io/codepen/nike-product-page/cart.png"
-                alt=""
-              />
-              <span>add</span>
-            </button> */}
-                  {/* <a href="#!"><img src="http://co0kie.github.io/codepen/nike-product-page/share.png" alt=""/></a> */}
+                  <button
+                    type="button"
+                  >
+                    <span>add Review</span>
+                  </button>
                 </div>
               </div>
             </div>

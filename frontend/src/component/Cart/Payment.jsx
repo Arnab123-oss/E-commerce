@@ -112,7 +112,7 @@ const Payment = () => {
   useEffect(() => {
     if (error) {
       toast.error(error);
-      dispatch("clearErrors");
+      dispatch("clearError");
     }
   }, [dispatch, error]);
 

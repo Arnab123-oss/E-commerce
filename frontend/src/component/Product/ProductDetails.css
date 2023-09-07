@@ -82,11 +82,11 @@ a {
 .product-details .before {
   margin-left: 2rem;
 }
-.product-details .fc-g{
+.product-details .fc-g {
   color: green;
 }
-.product-details .fc-r{
-  color: red
+.product-details .fc-r {
+  color: red;
 }
 .product-details header {
   margin-bottom: 50px;
@@ -180,11 +180,11 @@ a {
 .product-details .color-bdot5.active {
   box-shadow: 0 0 0 3px white, 0 0 0 5px #dfdfdf;
 }
- .rate {
+.rate {
   position: static;
   margin-top: 10px;
-  
-}.rate a {
+}
+.rate a {
   color: rgb(218, 139, 56);
 }
 .reviewCount {
@@ -215,27 +215,33 @@ a {
   align-items: center;
 }
 .Product-footer > button {
-  display: flex;
+  /* display: flex;
   border: 0;
   padding: 15px 25px;
   align-items: center;
-  border-radius: 7px;
+  border-radius: 7px; */
+  background-color: #dd7973;
+  border: none;
+  padding: 1vmax 2vmax;
   cursor: pointer;
-  background: linear-gradient(to bottom, #ff886b 0%, #ff4164 100%);
-  box-shadow: 0 10px 30px 0 rgba(255, 136, 107, 0.7);
-  transition: 200ms;
+  font: 300 1vmax "Roboto";
+  border-radius: 50px 5px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px 0 #dd7973;
+  transition: background-color 0.3s;
 }
 .Product-footer > button:hover {
-  background: linear-gradient(to bottom, #ff4164 0%, #ff886b 100%);
-}
-.Product-footer > button > img {
-  width: 31px;
+  /* background: linear-gradient(to bottom, #ff4164 0%, #ff886b 100%); */
+  background-color: rgb(51, 51, 51);
+
+  transition-delay: 0.3s;
+
 }
 .Product-footer > button > span {
-  font-size: 18px;
+  font-size: 10px;
   text-transform: uppercase;
   font-weight: 700;
-  margin-left: 10px;
+  margin-left: 5px;
   color: white;
 }
 /* .Product-footer > a img {
@@ -246,7 +252,7 @@ a {
   opacity: 1;
 } */
 
-.reviewsHeader{
+.reviewsHeader {
   color: #000000be;
   font: 500 1.4vmax "Roboto";
   text-align: center;
@@ -260,7 +266,7 @@ a {
   display: flex;
   overflow: auto;
 }
-.reviewCard{
+.reviewCard {
   flex: none;
 
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.226);
@@ -291,19 +297,19 @@ a {
   text-align: center;
   color: rgba(0, 0, 0, 0.548);
 }
-.detailsBlock-3-1-1{
+.detailsBlock-3-1-1 {
   display: flex;
   align-items: center;
   padding: 1vmax 0;
 }
 .detailsBlock-3-1-1 > button {
   border: none;
-  background-color: #ff886b;
+  background-color: #dd7973;
   padding: 0.5vmax;
   cursor: pointer;
   color: white;
   transition: all 0.5s;
-  border-radius:25%;
+  border-radius: 25%;
 }
 .detailsBlock-3-1-1 > button:hover {
   background-color: rgba(0, 0, 0, 0.767);
@@ -343,9 +349,25 @@ a {
     margin: 0.5vmax;
     font: 300 2vmax "Roboto";
   }
+
+  .Product-footer > button > span {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-left: 10px;
+    color: white;
+
+}
+.Product-footer > button > span {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-left: 10px;
+  color: white;
 }
 
 
+}
 
 @media (min-width: 56.25em) {
   .Product-container {
@@ -370,6 +392,7 @@ a {
   .reviewCount {
     margin: 0.5vmax;
     font: 300 0.9vmax "Roboto";
+
   }
 }
 
@@ -401,3 +424,4 @@ a {
   width: 80%;
   margin: 5em 0 2em 0;
 }
+

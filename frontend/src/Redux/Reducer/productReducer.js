@@ -48,3 +48,29 @@ export const productDetailsReducer = createReducer(
     },
   }
 );
+
+export const productReviewReducer = createReducer(
+  { singleProduct: { ratings: 0 } },
+  {
+    productReviewRequest: (state) => {
+      state.loading = true;
+    },
+    productReviewSuccess: (state, action) => {
+      state.loading = false;
+      state.success = action.payload;
+    },
+    productReviewFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    productReviewReset: (state, action) => {
+      state.success = false;
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
+    clearMessage: (state) => {
+      state.message = null;
+    },
+  }
+);

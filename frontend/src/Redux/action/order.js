@@ -43,3 +43,25 @@ export const myOrdersDetails = () => async (dispatch) => {
     });
   }
 };
+
+
+// my Orders Details
+export const getOrdersDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "orderDetailsRequest" });
+
+    const config = {
+      headers: {
+        authorization: localStorage.getItem("authToken"),
+      },
+    };
+    const { data } = await axios.get(`${server}/order/${id}`, config);
+
+    dispatch({ type: "orderDetailsSuccess", payload: data.order });
+  } catch (error) {
+    dispatch({
+      type: "orderDetailsFail",
+      payload: error.response.data.message,
+    });
+  }
+};

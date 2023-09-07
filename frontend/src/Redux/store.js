@@ -2,10 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import {
   productDetailsReducer,
   productReducer,
+  productReviewReducer,
 } from "./Reducer/productReducer";
 import { profileReducer, userReducer } from "./Reducer/userReducer";
 import { cartReducer } from "./Reducer/cartReducer";
-import { myOrderReducer, newOrderReducer } from "./Reducer/orderReducer";
+import {
+  myOrderReducer,
+  newOrderReducer,
+  orderDetailsReducer,
+} from "./Reducer/orderReducer";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +21,8 @@ const store = configureStore({
     cart: cartReducer,
     order: newOrderReducer,
     myOrders: myOrderReducer,
+    orderDetails: orderDetailsReducer,
+    review: productReviewReducer,
   },
 });
 
