@@ -27,13 +27,13 @@ export const getAllProducts = catchAsyncError(async (req, res) => {
   let filteredProductsCount = products.length;
   apifeatures.pagination(resultPerPage);
   products = await apifeatures.query.clone();
-  
+
   res.status(200).json({
     success: true,
     products,
     productCount,
     resultPerPage,
-    filteredProductsCount
+    filteredProductsCount,
   });
 });
 //Update Product  -- Admin
@@ -95,6 +95,9 @@ export const createProductReview = catchAsyncError(async (req, res, next) => {
   const review = {
     user: req.user._id,
     name: req.user.name,
+    avatar: req.user.avatar.url
+      ? req.user.avatar.url
+      : "https://pixlok.com/wp-content/uploads/2022/02/Profile-Icon-SVG-09856789.png",
     rating: Number(rating),
     comment,
   };

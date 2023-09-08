@@ -10,6 +10,7 @@ import {
   deleteReview,
 } from "../controllers/productController.js";
 import { authorizedAdmin, isAuthenticated } from "../middleware/auth.js";
+import singleUpload from "../middleware/multer.js";
 
 const router = express.Router();
 
@@ -26,7 +27,7 @@ router
 
 router.route("/product/:id").get(getProductDetails);
 
-router.route("/review").put(isAuthenticated, createProductReview);
+router.route("/review").put(isAuthenticated,singleUpload, createProductReview);
 
 router
   .route("/reviews")

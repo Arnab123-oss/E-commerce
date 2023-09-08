@@ -79,7 +79,7 @@ const MyOrders = () => {
   useEffect(() => {
     if (error) {
       toast.error(error);
-      dispatch("clearError");
+      dispatch({type:"clearError"});
     }
 
     dispatch(myOrdersDetails());

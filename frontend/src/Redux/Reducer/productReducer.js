@@ -57,14 +57,11 @@ export const productReviewReducer = createReducer(
     },
     productReviewSuccess: (state, action) => {
       state.loading = false;
-      state.success = action.payload;
+      state.message = action.payload;
     },
     productReviewFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
-    },
-    productReviewReset: (state, action) => {
-      state.success = false;
     },
     clearError: (state) => {
       state.error = null;

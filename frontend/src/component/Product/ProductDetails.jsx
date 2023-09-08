@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./ProductDetails.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getSingleProducts } from "../../Redux/action/product";
+import { getSingleProducts, newReview } from "../../Redux/action/product";
 import { useParams } from "react-router-dom";
 import { BsFillStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import ReviewCard from "./ReviewCard.jsx";
@@ -10,16 +10,29 @@ import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/Hader/MetaData";
 import { addToCart } from "../../Redux/action/cart";
 import { toast } from "react-hot-toast";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@material-ui/core";
+import { Rating } from "@mui/material";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const { singleProduct, loading } = useSelector(
     (state) => state.productDetails
   );
+  const { message, error } = useSelector((state) => state.review);
+
   const params = useParams();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = useState(false);
+  const [reviewRating, setReviewRating] = useState(0);
+  const [comment, setComment] = useState("");
 
   const increaseQuantity = () => {
     if (singleProduct.Stock <= quantity) return;
@@ -57,7 +70,15 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(getSingleProducts(params.id));
-  }, [dispatch, params.id]);
+    if (error) {
+      toast.error(error);
+      dispatch({ type: "clearError" });
+    }
+    if (message) {
+      toast.success(message);
+      dispatch({ type: "clearMessage" });
+    }
+  }, [dispatch, params.id, error, message]);
   const rating = singleProduct.ratings;
   const Star = Array.from({ length: 5 }, (elem, index) => {
     let number = index + 0.5;
@@ -73,6 +94,22 @@ const ProductDetails = () => {
       </a>
     );
   });
+
+  const submitReviewToggle = () => {
+    open ? setOpen(false) : setOpen(true);
+  };
+
+  const reviewSubmitHandler = () => {
+    const myForm = new FormData();
+
+    myForm.set("rating", reviewRating);
+    myForm.set("comment", comment);
+    myForm.set("productId", params.id);
+
+    dispatch(newReview(myForm));
+
+    setOpen(false);
+  };
 
   return (
     <>
@@ -185,15 +222,9 @@ const ProductDetails = () => {
                     disabled={singleProduct.Stock < 1 ? true : false}
                     onClick={addCartHandler}
                   >
-                    {/* <img
-                      src="http://co0kie.github.io/codepen/nike-product-page/cart.png"
-                      alt=""
-                    /> */}
                     <span>add to cart</span>
                   </button>
-                  <button
-                    type="button"
-                  >
+                  <button type="button" onClick={submitReviewToggle}>
                     <span>add Review</span>
                   </button>
                 </div>
@@ -201,6 +232,37 @@ const ProductDetails = () => {
             </div>
           </div>
           <h3 className="reviewsHeader">REVIEWS</h3>
+          <Dialog
+            aria-labelledby="simple-dialog-title"
+            open={open}
+            onClose={submitReviewToggle}
+          >
+            <DialogTitle>Submit Review</DialogTitle>
+            <DialogContent className="submitDialog">
+              <Rating
+                onChange={(e) => setReviewRating(e.target.value)}
+                value={reviewRating}
+                size="large"
+              />
+
+              <textarea
+                className="submitDialogTextArea"
+                cols="30"
+                rows="5"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={submitReviewToggle} color="secondary">
+                Cancel
+              </Button>
+              <Button onClick={reviewSubmitHandler} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </Dialog>
+
           {singleProduct.reviews && singleProduct.reviews[0] ? (
             <div className="reviews">
               {singleProduct.reviews &&

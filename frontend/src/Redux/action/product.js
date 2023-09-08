@@ -48,7 +48,7 @@ export const newReview = (reviewData) => async (dispatch) => {
       },
     };
     const { data } = await axios.put(`${server}/review`, reviewData, config);
-    dispatch({ type: "productReviewSuccess", payload: data.success });
+    dispatch({ type: "productReviewSuccess", payload: data.message });
   } catch (error) {
     dispatch({
       type: "productReviewFail",

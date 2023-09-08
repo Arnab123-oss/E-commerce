@@ -38,7 +38,7 @@ const schema = new mongoose.Schema({
   Stock: {
     type: Number,
     required: [true, "Please Enter product Stock"],
-    maxLength: [4, "price can't exceed 4 characters "],
+    maxLength: [4, "Stock can't exceed 4 characters "],
     default: 1,
   },
   numOfReviews: {
@@ -52,6 +52,11 @@ const schema = new mongoose.Schema({
         ref: "User",
         required: true,
       },
+
+      avatar: {
+        type: String,
+      },
+
       name: {
         type: String,
         required: true,

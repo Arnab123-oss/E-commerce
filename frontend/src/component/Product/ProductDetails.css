@@ -277,10 +277,13 @@ a {
   align-items: center;
   margin: 1vmax;
   padding: 3vmax;
+  border-radius: 50px ;
 }
 
 .reviewCard > img {
-  width: 5vmax;
+  width: 4vmax;
+  height: 4vmax;
+  border-radius: 50%;
 }
 
 .reviewCard > p {
@@ -291,7 +294,17 @@ a {
   color: rgba(0, 0, 0, 0.445);
   font: 300 0.8vmax cursive;
 }
-
+.submitDialog {
+  display: flex;
+  flex-direction: column;
+}
+.submitDialogTextArea {
+  border: 1px solid rgba(0, 0, 0, 0.082);
+  margin: 1vmax 0;
+  outline: none;
+  padding: 1rem;
+  font: 300 1rem "Roboto";
+}
 .noReview {
   font: 400 1.3vmax "Gill Sans";
   text-align: center;

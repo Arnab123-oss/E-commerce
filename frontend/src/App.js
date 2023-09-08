@@ -27,7 +27,7 @@ import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import Payment from "./component/Cart/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-// import { server } from "./Redux/store";
+import { server } from "./Redux/store";
 import OrderSuccess from "./component/Cart/OrderSuccess";
 import MyOrders from "./component/Order/MyOrders";
 import MyOrdersDetails from "./component/Order/MyOrdersDetails";
@@ -47,7 +47,7 @@ function App() {
         authorization: localStorage.getItem("authToken"),
       },
     };
-    const { data } = await axios.get(`/api/v1/stripeapikey`, config);
+    const { data } = await axios.get(`${server}/stripeapikey`, config);
     setStripeApiKey(data.stripeApiKey);
   };
 
@@ -69,9 +69,11 @@ function App() {
       toast.success(message);
       dispatch({ type: "clearMessage" });
     }
-
-    getStripeApiKey();
-  }, [dispatch, error, message]);
+ if(isAuthenticated){
+  getStripeApiKey();
+ }
+   
+  }, [dispatch, error, message,isAuthenticated]);
 
   useEffect(() => {
     dispatch(loadUser());
