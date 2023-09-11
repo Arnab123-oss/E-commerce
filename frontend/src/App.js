@@ -31,6 +31,7 @@ import { server } from "./Redux/store";
 import OrderSuccess from "./component/Cart/OrderSuccess";
 import MyOrders from "./component/Order/MyOrders";
 import MyOrdersDetails from "./component/Order/MyOrdersDetails";
+import Dashboard from "./component/admin/Dashboard";
 
 
 function App() {
@@ -69,11 +70,10 @@ function App() {
       toast.success(message);
       dispatch({ type: "clearMessage" });
     }
- if(isAuthenticated){
-  getStripeApiKey();
- }
-   
-  }, [dispatch, error, message,isAuthenticated]);
+    if (isAuthenticated) {
+      getStripeApiKey();
+    }
+  }, [dispatch, error, message, isAuthenticated]);
 
   useEffect(() => {
     dispatch(loadUser());
@@ -171,6 +171,14 @@ function App() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <MyOrdersDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Dashboard />
             </ProtectedRoute>
           }
         />
