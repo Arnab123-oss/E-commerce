@@ -13,7 +13,9 @@ export const createProduct = catchAsyncError(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
+    message:"Product Created SuccessFully",
     product,
+
   });
 });
 // Get All Product
@@ -195,4 +197,13 @@ export const deleteReview = catchAsyncError(async (req, res, next) => {
   });
 });
 
-//4.08.02
+//Get All Products For Admin
+
+export const getAdminProducts = catchAsyncError(async (req, res) => {
+  const products = await Product.find();
+
+  res.status(200).json({
+    success: true,
+    products,
+  });
+});

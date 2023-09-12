@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { CgMouse } from "react-icons/cg";
 import "./Home.css";
 import ProductCard from "./ProductCard.jsx";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../Redux/action/product";
 import { toast } from "react-hot-toast";

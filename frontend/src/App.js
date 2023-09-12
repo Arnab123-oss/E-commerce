@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Header from "./component/layout/Hader/Header";
+import Header from "./component/layout/Header/Header";
 import Footer from "./component/layout/Footer/Footer";
 import Home from "./component/Home/Home";
 import { useDispatch } from "react-redux";
@@ -15,7 +15,7 @@ import { ProtectedRoute } from "protected-route-react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { loadUser } from "./Redux/action/user";
-import UserOption from "./component/layout/Hader/UserOption";
+import UserOption from "./component/layout/Header/UserOption";
 import Profile from "./component/User/Profile";
 import UpdateProfile from "./component/User/UpdateProfile";
 import UpdatePassword from "./component/User/UpdatePassword";
@@ -32,7 +32,8 @@ import OrderSuccess from "./component/Cart/OrderSuccess";
 import MyOrders from "./component/Order/MyOrders";
 import MyOrdersDetails from "./component/Order/MyOrdersDetails";
 import Dashboard from "./component/admin/Dashboard";
-
+import ProductList from "./component/admin/ProductList";
+import CreateProduct from "./component/admin/CreateProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -177,8 +178,37 @@ function App() {
         <Route
           path="/admin/dashboard"
           element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin"}
+            >
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/products"
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin"}
+            >
+              <ProductList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/product/new"
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin"}
+            >
+              <CreateProduct />
             </ProtectedRoute>
           }
         />

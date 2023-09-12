@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { BsFillStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import ReviewCard from "./ReviewCard.jsx";
 import Loader from "../layout/Loader/Loader";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 import { addToCart } from "../../Redux/action/cart";
 import { toast } from "react-hot-toast";
 import {

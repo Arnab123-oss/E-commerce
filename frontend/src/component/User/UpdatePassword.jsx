@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {  changePassword } from "../../Redux/action/user";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 import {BsKey} from "react-icons/bs"
 import {BiSolidLock} from "react-icons/bi"
 

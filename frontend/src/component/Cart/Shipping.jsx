@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Shipping.css";
 import { useSelector, useDispatch } from "react-redux";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 import { MdOutlinePinDrop } from "react-icons/md";
 import { BiHomeHeart } from "react-icons/bi";
 import { MdLocationCity } from "react-icons/md";

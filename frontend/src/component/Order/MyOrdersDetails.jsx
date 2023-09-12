@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./orderDetails.css";
 import { useSelector, useDispatch } from "react-redux";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import Loader from "../layout/Loader/Loader";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Search.css";
 import { useNavigate } from "react-router-dom";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 
 const Search = () => {
   const navigate = useNavigate();

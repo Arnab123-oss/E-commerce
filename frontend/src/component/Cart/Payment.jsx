@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import CheckoutSteps from "../Cart/CheckoutSteps";
 import { useSelector, useDispatch } from "react-redux";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 import { Typography } from "@material-ui/core";
 import { toast } from "react-hot-toast";
 import {

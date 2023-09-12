@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 import Loader from "../layout/Loader/Loader";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

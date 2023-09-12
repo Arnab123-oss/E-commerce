@@ -1,5 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 
+
 export const productReducer = createReducer(
   { products: [] },
   {
@@ -14,6 +15,43 @@ export const productReducer = createReducer(
       state.filteredProductsCount = action.payload.filteredProductsCount;
     },
     getAllProductFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    getAdminProductRequest: (state) => {
+      state.loading = true;
+    },
+    getAdminProductSuccess: (state,action) => {
+      state.loading = false;
+      state.products = action.payload;
+    },
+    getAdminProductFail: (state,action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    clearError: (state) => {
+      state.error = null;
+    },
+    clearMessage: (state) => {
+      state.message = null;
+    },
+  }
+);
+
+export const createProductReducer = createReducer(
+  { product: {} },
+  {
+    createProductRequest: (state) => {
+      state.loading = true;
+    },
+    createProductSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload.message;
+      state.product = action.payload.product;
+
+    },
+    createProductFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

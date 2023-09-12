@@ -34,7 +34,7 @@ const Sidebar = () => {
                   <TreeItem nodeId="2" label="All" icon={<MdPostAdd />} />
                 </Link>
     
-                <Link to="/admin/product">
+                <Link to="/admin/product/new">
                   <TreeItem nodeId="3" label="Create" icon={<BiAddToQueue />} />
                 </Link>
               </TreeItem>

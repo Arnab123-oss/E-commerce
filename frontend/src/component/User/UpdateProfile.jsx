@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadUser, updateProfile } from "../../Redux/action/user";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();

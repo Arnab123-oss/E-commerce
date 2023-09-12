@@ -5,7 +5,7 @@ import Loader from "../layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { forgetPassword } from "../../Redux/action/user";
 import { toast } from "react-hot-toast";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();

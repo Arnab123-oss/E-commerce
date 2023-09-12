@@ -6,7 +6,7 @@ import Loader from "../layout/Loader/Loader";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Typography from "@material-ui/core/Typography";
-import MetaData from "../layout/Hader/MetaData";
+import MetaData from "../layout/Header/MetaData";
 import { MdOutlineLaunch } from "react-icons/md";
 import { myOrdersDetails } from "../../Redux/action/order";
 

@@ -8,6 +8,7 @@ import {
   createProductReview,
   getAllReviews,
   deleteReview,
+  getAdminProducts,
 } from "../controllers/productController.js";
 import { authorizedAdmin, isAuthenticated } from "../middleware/auth.js";
 import singleUpload from "../middleware/multer.js";
@@ -18,7 +19,11 @@ router.route("/products").get(getAllProducts); //isAuthenticated,
 
 router
   .route("/admin/product/new")
-  .post(isAuthenticated, authorizedAdmin, createProduct);
+  .post(isAuthenticated, authorizedAdmin,singleUpload, createProduct);
+
+  router
+  .route("/admin/products")
+  .get(isAuthenticated, authorizedAdmin, getAdminProducts);
 
 router
   .route("/admin/product/:id")

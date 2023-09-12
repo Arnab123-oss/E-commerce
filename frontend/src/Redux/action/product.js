@@ -56,3 +56,51 @@ export const newReview = (reviewData) => async (dispatch) => {
     });
   }
 };
+
+// Get All Products For Admin
+export const getAdminProduct = () => async (dispatch) => {
+  try {
+    dispatch({ type: "getAdminProductRequest" });
+
+    const config = {
+      headers: {
+        "content-type": "application/json",
+        authorization: localStorage.getItem("authToken"),
+      },
+    };
+
+    const { data } = await axios.get(`${server}/admin/products`, config);
+
+    dispatch({
+      type: "getAdminProductSuccess",
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: "getAdminProductFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//create a product
+export const createNewProduct = (productData) => async (dispatch) => {
+  try {
+    dispatch({ type: "createProductRequest" });
+    const config = {
+      headers: {
+        "content-type": "application/json",
+        authorization: localStorage.getItem("authToken"),
+      },
+    };
+    const { data } = await axios.post(`${server}/admin/product/new`, productData, config);
+    dispatch({ type: "createProductSuccess", payload: data });
+  } catch (error) {
+    dispatch({
+      type: "createProductFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+
