@@ -2,7 +2,7 @@ import express from "express";
 import { errorMiddleware } from "./middleware/error.js";
 import cookieparser from "cookie-parser";
 import cors from "cors";
-// import bodyParser from "body-parser";
+import bodyParser from "body-parser";
 // import fileUpload from "express-fileupload";
 import dotenv from "dotenv";
 
@@ -25,7 +25,7 @@ app.use(cors({
   credentials:true,
   method: ["GET","POST","PUT","DELETE"]
 }))
-// app.use(bodyParser.urlencoded({ extended: true })); // insteed of this
+app.use(bodyParser.urlencoded({ extended: true })); // insteed of this
 //code I have to check this code is run or not
 // app.use(
 //     express.urlencoded({

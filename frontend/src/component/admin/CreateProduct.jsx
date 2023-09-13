@@ -59,7 +59,7 @@ const CreateProduct = () => {
     myForm.set("name", name);
     myForm.set("price", price);
     myForm.set("description", description);
-    myForm.set("category", category); 
+    myForm.set("category", category);
     myForm.set("Stock", stock);
 
     images.forEach((image) => {

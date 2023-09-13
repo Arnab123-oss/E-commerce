@@ -6,7 +6,9 @@ import { User } from "../model/User.js";
 export const isAuthenticated = catchAsyncError(async (req, res, next) => {
     const token = req.headers.authorization;
 
+
   // const { token } = req.cookies;
+
 
   if (!token) {
     return next(new ErrorHandler("Please Login to access this resource", 401));
