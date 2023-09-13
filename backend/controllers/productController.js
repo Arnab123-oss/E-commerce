@@ -5,9 +5,12 @@ import { ApiFeatures } from "../utils/apifeatures.js";
 import getDataUri from "../utils/dataUri.js";
 import cloudinary from "cloudinary";
 
+
+
 // create product -- Admin
 
 export const createProduct = catchAsyncError(async (req, res, next) => {
+
   let images = req.files
 console.log(images)
 
@@ -17,13 +20,20 @@ console.log(images)
   //   images = req.body.images;
   // }
 
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
   const imagesLinks = [];
 
   for (let i = 0; i < images.length; i++) {
 
-    const fileUri = getDataUri(images[i]);
+    const img = getDataUri(images[i]);
 
-    const result = await cloudinary.v2.uploader.upload(fileUri.content);
+    const result = await cloudinary.v2.uploader.upload(img.content);
+
 
     imagesLinks.push({
       public_id: result.public_id,
@@ -41,6 +51,8 @@ console.log(images)
     product,
   });
 });
+
+
 // Get All Product
 export const getAllProducts = catchAsyncError(async (req, res) => {
   const resultPerPage = 8;
