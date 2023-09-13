@@ -2,20 +2,43 @@ import { Product } from "../model/Product.js";
 import { ErrorHandler } from "../utils/errorhandler.js";
 import { catchAsyncError } from "../middleware/catchAsyncErrors.js";
 import { ApiFeatures } from "../utils/apifeatures.js";
-import { User } from "../model/User.js";
+import getDataUri from "../utils/dataUri.js";
+import cloudinary from "cloudinary";
 
 // create product -- Admin
 
 export const createProduct = catchAsyncError(async (req, res, next) => {
+  let images = req.files
+console.log(images)
+
+  // if (typeof req.body.images === "string") {
+  //   images.push(req.body.images);
+  // } else {
+  //   images = req.body.images;
+  // }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+
+    const fileUri = getDataUri(images[i]);
+
+    const result = await cloudinary.v2.uploader.upload(fileUri.content);
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
   req.body.user = req.user.id;
 
   const product = await Product.create(req.body);
-
   res.status(201).json({
     success: true,
-    message:"Product Created SuccessFully",
+    message: "Product Created SuccessFully",
     product,
-
   });
 });
 // Get All Product

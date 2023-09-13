@@ -85,16 +85,22 @@ export const getAdminProduct = () => async (dispatch) => {
 
 //create a product
 export const createNewProduct = (productData) => async (dispatch) => {
+  
   try {
     dispatch({ type: "createProductRequest" });
     const config = {
       headers: {
-        "content-type": "application/json",
+        "content-type": "multipart/form-data",
         authorization: localStorage.getItem("authToken"),
       },
     };
-    const { data } = await axios.post(`${server}/admin/product/new`, productData, config);
+    const { data } = await axios.post(
+      `${server}/admin/product/new`,
+      productData,
+      config
+    );
     dispatch({ type: "createProductSuccess", payload: data });
+    console.log(data);
   } catch (error) {
     dispatch({
       type: "createProductFail",
@@ -102,5 +108,3 @@ export const createNewProduct = (productData) => async (dispatch) => {
     });
   }
 };
-
-

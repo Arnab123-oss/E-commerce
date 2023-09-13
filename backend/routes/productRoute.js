@@ -13,13 +13,15 @@ import {
 import { authorizedAdmin, isAuthenticated } from "../middleware/auth.js";
 import singleUpload from "../middleware/multer.js";
 
+
+
 const router = express.Router();
 
 router.route("/products").get(getAllProducts); //isAuthenticated,
 
 router
   .route("/admin/product/new")
-  .post(isAuthenticated, authorizedAdmin,singleUpload, createProduct);
+  .post(isAuthenticated, authorizedAdmin,createProduct);
 
   router
   .route("/admin/products")

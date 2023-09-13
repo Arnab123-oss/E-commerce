@@ -6,7 +6,6 @@ import { User } from "../model/User.js";
 export const isAuthenticated = catchAsyncError(async (req, res, next) => {
     const token = req.headers.authorization;
 
-
   // const { token } = req.cookies;
 
   if (!token) {
@@ -21,6 +20,7 @@ export const isAuthenticated = catchAsyncError(async (req, res, next) => {
 });
 
 export const authorizedAdmin = (req, res, next) => {
+
   if (req.user.role !== "admin")
     return next(
       new ErrorHandler(

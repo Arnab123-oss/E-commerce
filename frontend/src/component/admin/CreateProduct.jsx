@@ -48,18 +48,18 @@ const CreateProduct = () => {
     if (message) {
       toast.success("Product Created Successfully");
       navigate("/admin/dashboard");
+      dispatch({ type: "clearMessage" });
     }
   }, [dispatch, error, message]);
 
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
-
     const myForm = new FormData();
 
     myForm.set("name", name);
     myForm.set("price", price);
     myForm.set("description", description);
-    myForm.set("category", category);
+    myForm.set("category", category); 
     myForm.set("Stock", stock);
 
     images.forEach((image) => {
@@ -71,25 +71,23 @@ const CreateProduct = () => {
 
   const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
-  
+
     // setImages([]);
     // setImagesPreview([]);
-  
+
     files.forEach((file) => {
       const reader = new FileReader();
-  
+
       reader.onload = () => {
         if (reader.readyState === 2) {
           setImagesPreview((old) => [...old, reader.result]);
           setImages((old) => [...old, reader.result]);
         }
       };
-  
+
       reader.readAsDataURL(file);
     });
   };
-  
-
 
   return (
     <>
@@ -172,7 +170,6 @@ const CreateProduct = () => {
               id="createProductBtn"
               type="submit"
               disabled={loading ? true : false}
-        
             >
               Create
             </Button>
