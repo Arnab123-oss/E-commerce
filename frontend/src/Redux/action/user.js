@@ -18,7 +18,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const register = (userdata) => async (dispatch) => {
-  console.log(userdata);
+
   try {
     dispatch({ type: "registerRequest" });
 

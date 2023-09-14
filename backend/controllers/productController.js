@@ -5,25 +5,14 @@ import { ApiFeatures } from "../utils/apifeatures.js";
 import getDataUri from "../utils/dataUri.js";
 import cloudinary from "cloudinary";
 
-
-
 // create product -- Admin
 
 export const createProduct = catchAsyncError(async (req, res, next) => {
+  const images = req.files;
+  console.log(req.files);
 
-  let images = req.files
-console.log(images)
-
-  // if (typeof req.body.images === "string") {
-  //   images.push(req.body.images);
-  // } else {
-  //   images = req.body.images;
-  // }
-
-  if (typeof req.body.images === "string") {
-    images.push(req.body.images);
-  } else {
-    images = req.body.images;
+  if (!images) {
+    return next(new ErrorHandler("No file uploaded", 400));
   }
 
   const imagesLinks = [];
@@ -34,7 +23,6 @@ console.log(images)
 
     const result = await cloudinary.v2.uploader.upload(img.content);
 
-
     imagesLinks.push({
       public_id: result.public_id,
       url: result.secure_url,
@@ -44,6 +32,7 @@ console.log(images)
   req.body.images = imagesLinks;
   req.body.user = req.user.id;
 
+
   const product = await Product.create(req.body);
   res.status(201).json({
     success: true,
@@ -52,6 +41,50 @@ console.log(images)
   });
 });
 
+// export const uploadPhoto = catchAsyncError(async (req, res, next) => {
+//   const file = req.files;
+//   console.log(req);
+//   if (!file) {
+//     return next(new ErrorHandler("No file uploaded", 400));
+//   }
+//   const fileUri = getDataUri(file);
+
+//   const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
+
+//   const publicId = mycloud.public_id;
+//   const url = mycloud.secure_url;
+
+//   res.status(201).json({
+//     publicId,
+//     url,
+//   });
+// });
+
+// let images = req.files
+// console.log(images)
+
+//   if (typeof req.body.images === "string") {
+//     images.push(req.body.images);
+//   } else {
+//     images = req.body.images;
+//   }
+
+//   const imagesLinks = [];
+
+//   for (let i = 0; i < images.length; i++) {
+
+//     const img = getDataUri(images[i]);
+
+//     const result = await cloudinary.v2.uploader.upload(img.content);
+
+//     imagesLinks.push({
+//       public_id: result.public_id,
+//       url: result.secure_url,
+//     });
+//   }
+
+//   req.body.images = imagesLinks;
+//   req.body.user = req.user.id;
 
 // Get All Product
 export const getAllProducts = catchAsyncError(async (req, res) => {

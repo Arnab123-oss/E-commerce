@@ -47,9 +47,10 @@ function App() {
     const config = {
       headers: {
         authorization: localStorage.getItem("authToken"),
+        withCredentials: true,
       },
     };
-    const { data } = await axios.get(`${server}/stripeapikey`, config);
+    const { data } = await axios.get(`${server}/stripeapikey `, config); //http://localhost:4000/api/v1/stripeapikey
     setStripeApiKey(data.stripeApiKey);
   };
 

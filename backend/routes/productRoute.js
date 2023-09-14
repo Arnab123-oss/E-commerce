@@ -11,7 +11,7 @@ import {
   getAdminProducts,
 } from "../controllers/productController.js";
 import { authorizedAdmin, isAuthenticated } from "../middleware/auth.js";
-import singleUpload from "../middleware/multer.js";
+import singleUpload, { multipleUpload } from "../middleware/multer.js";
 
 
 
@@ -21,7 +21,11 @@ router.route("/products").get(getAllProducts); //isAuthenticated,
 
 router
   .route("/admin/product/new")
-  .post(isAuthenticated, authorizedAdmin,createProduct);
+  .post(isAuthenticated, authorizedAdmin,multipleUpload,createProduct);
+
+  // router
+  // .route("/upload/photo")
+  // .post(isAuthenticated, authorizedAdmin,singleUpload, uploadPhoto);
 
   router
   .route("/admin/products")

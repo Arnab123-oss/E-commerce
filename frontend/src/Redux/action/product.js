@@ -84,8 +84,8 @@ export const getAdminProduct = () => async (dispatch) => {
 };
 
 //create a product
-export const createNewProduct = (productData) => async (dispatch) => {
-  
+export const createNewProduct = (ProductData) => async (dispatch) => {
+  //name, price, description, category, stock, images
   try {
     dispatch({ type: "createProductRequest" });
     const config = {
@@ -96,7 +96,7 @@ export const createNewProduct = (productData) => async (dispatch) => {
     };
     const { data } = await axios.post(
       `${server}/admin/product/new`,
-      productData,
+      ProductData ,
       config
     );
     dispatch({ type: "createProductSuccess", payload: data });

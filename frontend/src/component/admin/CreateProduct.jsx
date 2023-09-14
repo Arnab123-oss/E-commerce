@@ -12,6 +12,8 @@ import SideBar from "./Sidebar";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { createNewProduct } from "../../Redux/action/product";
+import axios from "axios";
+import { server } from "../../Redux/store";
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,7 @@ const CreateProduct = () => {
   const [stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
+  // const [imagesUrl, setImagesURL] = useState([]);
 
   const categories = [
     "Laptop",
@@ -52,6 +55,26 @@ const CreateProduct = () => {
     }
   }, [dispatch, error, message]);
 
+  // const uploadMultiplePhoto = async (imageData) => {
+  //   try {
+  //     const config = {
+  //       headers: {
+  //         "content-type": "multipart/form-data",
+  //         authorization: localStorage.getItem("authToken"),
+  //       },
+  //     };
+  //     const { data } = await axios.post(
+  //       `${server}/upload/photo`,
+  //       imageData,
+  //       config
+  //     );
+  //     console.log(data);
+  //     setImagesURL((old) => [...old, data]);
+  //   } catch (error) {
+  //     toast.error("Fuck");
+  //   }
+  // };
+
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
@@ -61,16 +84,23 @@ const CreateProduct = () => {
     myForm.set("description", description);
     myForm.set("category", category);
     myForm.set("Stock", stock);
+    myForm.set("images", [0,10]);
 
-    images.forEach((image) => {
-      myForm.append("images", image);
-    });
+    // images.forEach((image) => {
+    //   myForm.append("images", image);
+    // });
 
+    
+
+    // myForm.set("imagesArray", imagesUrl);
+    //name,price,description,category,stock,images
+   
     dispatch(createNewProduct(myForm));
   };
 
   const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
+    console.log(files); 
 
     // setImages([]);
     // setImagesPreview([]);
