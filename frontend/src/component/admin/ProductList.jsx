@@ -10,22 +10,22 @@ import { AiOutlineDeleteColumn } from "react-icons/ai";
 import SideBar from "./Sidebar";
 import {toast} from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { getAdminProduct } from "../../Redux/action/product";
+import { deleteProduct, getAdminProduct } from "../../Redux/action/product";
 
 const ProductList = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
 
-    const { error, products } = useSelector((state) => state.product);
+    const { loading,message,error, products } = useSelector((state) => state.product);
   
     // const { error: deleteError, isDeleted } = useSelector(
     //   (state) => state.product
     // );
   
-    // const deleteProductHandler = (id) => {
-    //   dispatch(deleteProduct(id));
-    // };
+    const deleteProductHandler = (id) => {
+      dispatch(deleteProduct(id));
+    };
   
     useEffect(() => {
       if (error) {
@@ -33,19 +33,15 @@ const ProductList = () => {
         dispatch({type: "clearError"});
       }
   
-    //   if (deleteError) {
-    //     toast.error(deleteError);
-    //     dispatch({type: "clearError"});
-    //   }
   
-    //   if (isDeleted) {
-    //     toast.success("Product Deleted Successfully");
-    //     navigate("/admin/dashboard");
-    //     dispatch({ type: DELETE_PRODUCT_RESET });
-    //   }
+      if (message) {
+        toast.success("Product Deleted Successfully");
+        navigate("/admin/dashboard");
+        dispatch({type: "clearMessage"});;
+      }
   
       dispatch(getAdminProduct());
-    }, [dispatch, toast, error]);
+    }, [dispatch, error,message]);
   
 
   const columns = [
@@ -88,9 +84,9 @@ const ProductList = () => {
               <TiEdit />
             </Link>
             <Button
-            //   onClick={() =>
-            //     deleteProductHandler(nameValue)
-            //   }
+              onClick={() =>
+                deleteProductHandler(nameValue)
+              }
             >
               <AiOutlineDeleteColumn />
             </Button>

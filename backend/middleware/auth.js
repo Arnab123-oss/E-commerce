@@ -4,6 +4,8 @@ import { ErrorHandler } from "../utils/errorhandler.js";
 import { User } from "../model/User.js";
 
 export const isAuthenticated = catchAsyncError(async (req, res, next) => {
+
+  
     const token = req.headers.authorization;
 
 

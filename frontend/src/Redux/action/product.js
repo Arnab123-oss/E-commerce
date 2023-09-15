@@ -108,3 +108,50 @@ export const createNewProduct = (ProductData) => async (dispatch) => {
     });
   }
 };
+
+
+//delete product
+
+export const deleteProduct = id => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        authorization: localStorage.getItem("authToken"),
+      },
+    };
+    dispatch({ type: 'deleteProductRequest' });
+    const { data } = await axios.delete(`${server}/admin/product/${id}`, config);
+    dispatch({ type: 'deleteProductSuccess', payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: 'deleteProductFail',
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//create a product
+export const updateProduct = (id,ProductData) => async (dispatch) => {
+  //name, price, description, category, stock, images
+  try {
+    dispatch({ type: " updateProductRequest" });
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        authorization: localStorage.getItem("authToken"),
+      },
+    };
+    const { data } = await axios.put(
+      `${server}/admin/product/${id}`,
+      ProductData ,
+      config
+    );
+    dispatch({ type: " updateProductSuccess", payload: data });
+    console.log(data);
+  } catch (error) {
+    dispatch({
+      type: " updateProductFail",
+      payload: error.response.data.message,
+    });
+  }
+};

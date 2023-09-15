@@ -29,7 +29,28 @@ export const productReducer = createReducer(
       state.loading = false;
       state.error = action.payload;
     },
-
+    updateProductRequest: state => {
+      state.loading = true;
+    },
+    updateProductSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload.message;
+    },
+    updateProductFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    deleteProductRequest: state => {
+      state.loading = true;
+    },
+    deleteProductSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    },
+    deleteProductFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     clearError: (state) => {
       state.error = null;
     },

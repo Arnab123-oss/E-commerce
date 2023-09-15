@@ -34,6 +34,8 @@ import MyOrdersDetails from "./component/Order/MyOrdersDetails";
 import Dashboard from "./component/admin/Dashboard";
 import ProductList from "./component/admin/ProductList";
 import CreateProduct from "./component/admin/CreateProduct";
+import UpdateProduct from "./component/admin/UpdateProduct";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -210,6 +212,18 @@ function App() {
               isAdmin={user && user.role === "admin"}
             >
               <CreateProduct />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/admin/product/:id"
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin"}
+            >
+              <UpdateProduct />
             </ProtectedRoute>
           }
         />

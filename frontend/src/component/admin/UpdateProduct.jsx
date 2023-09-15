@@ -10,18 +10,23 @@ import { MdSpellcheck } from "react-icons/md";
 import { TbCoinRupee } from "react-icons/tb";
 import SideBar from "./Sidebar";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { createNewProduct } from "../../Redux/action/product";
+import { useNavigate, useParams } from "react-router-dom";
+import { updateProduct, getSingleProducts } from "../../Redux/action/product";
 import axios from "axios";
 import { server } from "../../Redux/store";
 
-const CreateProduct = () => {
+const UpdateProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
 
-  const { loading, error, message } = useSelector(
-    (state) => state.createProduct
-  );
+  const {
+    loading,
+    error: updateError,
+    message,
+  } = useSelector((state) => state.product);
+
+  const { singleProduct, error } = useSelector((state) => state.productDetails);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -29,8 +34,8 @@ const CreateProduct = () => {
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
+  const [oldImages, setOldImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
-  // const [imagesUrl, setImagesURL] = useState([]);
 
   const categories = [
     "Laptop",
@@ -43,37 +48,41 @@ const CreateProduct = () => {
   ];
 
   useEffect(() => {
+    if (singleProduct && singleProduct._id !== params.id) {
+      dispatch(getSingleProducts(params.id));
+    } else {
+      setName(singleProduct.name);
+      setDescription(singleProduct.description);
+      setPrice(singleProduct.price);
+      setCategory(singleProduct.category);
+      setStock(singleProduct.Stock);
+      setOldImages(singleProduct.images);
+    }
+
     if (error) {
       toast.error(error);
       dispatch({ type: "clearError" });
     }
+    if (updateError) {
+      toast.error(updateError);
+      dispatch({ type: "clearError" });
+    }
 
     if (message) {
-      toast.success("Product Created Successfully");
-      navigate("/admin/dashboard");
+      toast.success(message);
+      navigate("/admin/products");
       dispatch({ type: "clearMessage" });
     }
-  }, [dispatch, error, message]);
-
-  // const uploadMultiplePhoto = async (imageData) => {
-  //   try {
-  //     const config = {
-  //       headers: {
-  //         "content-type": "multipart/form-data",
-  //         authorization: localStorage.getItem("authToken"),
-  //       },
-  //     };
-  //     const { data } = await axios.post(
-  //       `${server}/upload/photo`,
-  //       imageData,
-  //       config
-  //     );
-  //     console.log(data);
-  //     setImagesURL((old) => [...old, data]);
-  //   } catch (error) {
-  //     toast.error("Fuck");
-  //   }
-  // };
+  }, [
+    dispatch,
+    error,
+    message,
+    singleProduct,
+    singleProduct._id,
+    navigate,
+    params.id,
+    updateError,
+  ]);
 
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
@@ -84,23 +93,20 @@ const CreateProduct = () => {
     myForm.set("description", description);
     myForm.set("category", category);
     myForm.set("Stock", stock);
-    myForm.set("images", images);
+    // myForm.set("images", images);
 
-    // images.forEach((image) => {
-    //   myForm.append("images", image);
-    // });
-
-    
+    images.forEach((image) => {
+      myForm.append("images", image);
+    });
 
     // myForm.set("imagesArray", imagesUrl);
     //name,price,description,category,stock,images
-   
-    dispatch(createNewProduct(myForm));
+    dispatch(updateProduct(params.id, myForm));
   };
 
   const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
-    console.log(files); 
+    console.log(files);
 
     // setImages([]);
     // setImagesPreview([]);
@@ -130,7 +136,7 @@ const CreateProduct = () => {
             encType="multipart/form-data"
             onSubmit={createProductSubmitHandler}
           >
-            <h1>Create Product</h1>
+            <h1>Update Product</h1>
             <div>
               <MdSpellcheck />
               <input
@@ -148,6 +154,7 @@ const CreateProduct = () => {
                 placeholder="Price"
                 required
                 onChange={(e) => setPrice(e.target.value)}
+                value={price}
               />
             </div>
             <div>
@@ -163,7 +170,10 @@ const CreateProduct = () => {
             </div>
             <div>
               <MdAccountTree />
-              <select onChange={(e) => setCategory(e.target.value)}>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
                 <option value="">Choose Category</option>
                 {categories.map((cate) => (
                   <option key={cate} value={cate}>
@@ -179,6 +189,7 @@ const CreateProduct = () => {
                 placeholder="Stock"
                 required
                 onChange={(e) => setStock(e.target.value)}
+                value={stock}
               />
             </div>
             <div id="createProductFormFile">
@@ -189,6 +200,12 @@ const CreateProduct = () => {
                 onChange={createProductImagesChange}
                 multiple
               />
+            </div>
+            <div id="createProductFormImage">
+              {oldImages &&
+                oldImages.map((image, index) => (
+                  <img key={index} src={image.url} alt="Old Product Preview" />
+                ))}
             </div>
 
             <div id="createProductFormImage">
@@ -210,4 +227,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default UpdateProduct;
