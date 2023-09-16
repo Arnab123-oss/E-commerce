@@ -35,6 +35,8 @@ import Dashboard from "./component/admin/Dashboard";
 import ProductList from "./component/admin/ProductList";
 import CreateProduct from "./component/admin/CreateProduct";
 import UpdateProduct from "./component/admin/UpdateProduct";
+import ProductOrderList from "./component/admin/ProductOrderList";
+import ProcessOrder from "./component/admin/ProcessOrder";
 
 
 function App() {
@@ -215,7 +217,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="/admin/product/:id"
           element={
             <ProtectedRoute
@@ -224,6 +226,31 @@ function App() {
               isAdmin={user && user.role === "admin"}
             >
               <UpdateProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin"}
+            >
+              <ProductOrderList />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/order/:id"
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin"}
+            >
+              <ProcessOrder />
             </ProtectedRoute>
           }
         />
@@ -237,3 +264,5 @@ function App() {
 export default App;
 
 //11:43:33 load user problem solving part
+
+//create and update product is working but the photo section is not working

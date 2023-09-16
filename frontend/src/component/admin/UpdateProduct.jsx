@@ -127,7 +127,7 @@ const UpdateProduct = () => {
 
   return (
     <>
-      <MetaData title="Create Product" />
+      <MetaData title="Update Product" />
       <div className="dashboard">
         <SideBar />
         <div className="newProductContainer">
@@ -218,7 +218,7 @@ const UpdateProduct = () => {
               type="submit"
               disabled={loading ? true : false}
             >
-              Create
+              Update
             </Button>
           </form>
         </div>

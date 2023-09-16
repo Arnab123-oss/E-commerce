@@ -34,10 +34,6 @@ export const newOrderReducer = createReducer(
   }
 );
 
-
-
-
-
 export const myOrderReducer = createReducer(
     { orders: [] },
     {
@@ -72,6 +68,51 @@ export const myOrderReducer = createReducer(
         state.order = action.payload;
       },
       orderDetailsFail: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+      clearError: (state) => {
+        state.error = null;
+      },
+      clearMessage: (state) => {
+        state.message = null;
+      },
+    }
+  );
+
+  export const adminOrderReducer = createReducer(
+    { orders: [] },
+    {
+      allOrderRequest: (state) => {
+        state.loading = true;
+      },
+      allOrderSuccess: (state, action) => {
+        state.loading = false;
+        state.orders = action.payload;
+      },
+      allOrderFail: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+      updateOrderRequest: (state) => {
+        state.loading = true;
+      },
+      updateOrderSuccess: (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+      },
+      updateOrderFail: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+      deleteOrderRequest: (state) => {
+        state.loading = true;
+      },
+      deleteOrderSuccess: (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+      },
+      deleteOrderFail: (state, action) => {
         state.loading = false;
         state.error = action.payload;
       },
