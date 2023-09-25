@@ -321,7 +321,7 @@ export const deleteUser = catchAsyncError(async (req, res, next) => {
 
   if (!user) return next(new ErrorHandler("User not found"), 404);
 
-  // await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+  await cloudinary.v2.uploader.destroy(user.avatar.public_id);
 
   //cancel Subscription
 

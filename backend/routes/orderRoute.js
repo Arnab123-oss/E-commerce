@@ -9,6 +9,7 @@ import {
 } from "../controllers/orderController.js";
 
 import { authorizedAdmin, isAuthenticated } from "../middleware/auth.js";
+import singleUpload from "../middleware/multer.js";
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ router
 
 router
   .route("/admin/order/:id")
-  .put(isAuthenticated, authorizedAdmin, updateOrder)
+  .put(isAuthenticated, authorizedAdmin, singleUpload, updateOrder)
   .delete(isAuthenticated, authorizedAdmin, deleteOrder);
 
 export default router;

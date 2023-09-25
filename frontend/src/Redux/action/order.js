@@ -66,7 +66,8 @@ export const adminOrdersDetails = () => async (dispatch) => {
 };
 
 //update order
-export const updateOrder = (id,order) => async (dispatch) => {
+export const updateOrder = (id, order) => async (dispatch) => {
+  // console.log(id,status);
   try {
     dispatch({ type: "updateOrderRequest" });
 
@@ -74,11 +75,16 @@ export const updateOrder = (id,order) => async (dispatch) => {
       headers: {
         "Content-Type": "application/json",
         authorization: localStorage.getItem("authToken"),
+        withCredential: true,
       },
     };
-    const { data } = await axios.put(`${server}/admin/order/${id}`, order, config);
-
-    dispatch({ type: "cupdateOrderSuccess", payload: data.message });
+    const { data } = await axios.put(
+      `${server}/admin/order/${id}`,
+      order,
+      config
+    );
+    console.log(data);
+    dispatch({ type: "updateOrderSuccess", payload: data.message });
   } catch (error) {
     dispatch({
       type: "updateOrderFail",
@@ -88,25 +94,23 @@ export const updateOrder = (id,order) => async (dispatch) => {
 };
 
 //Delete order
-export const deleteOrder = id => async dispatch => {
+export const deleteOrder = (id) => async (dispatch) => {
   try {
     const config = {
       headers: {
         authorization: localStorage.getItem("authToken"),
       },
     };
-    dispatch({ type: 'deleteOrderRequest' });
+    dispatch({ type: "deleteOrderRequest" });
     const { data } = await axios.delete(`${server}/admin/order/${id}`, config);
-    dispatch({ type: 'deleteOrderSuccess', payload: data.message });
+    dispatch({ type: "deleteOrderSuccess", payload: data.message });
   } catch (error) {
     dispatch({
-      type: 'deleteOrderFail',
+      type: "deleteOrderFail",
       payload: error.response.data.message,
     });
   }
 };
-
-
 
 // my Orders Details
 export const getOrdersDetails = (id) => async (dispatch) => {

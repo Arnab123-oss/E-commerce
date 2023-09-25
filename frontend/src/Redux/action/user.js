@@ -18,7 +18,6 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const register = (userdata) => async (dispatch) => {
-
   try {
     dispatch({ type: "registerRequest" });
 
@@ -79,15 +78,16 @@ export const updateProfile = (userData) => async (dispatch) => {
   }
 };
 
-export const changePassword = (oldPassword, newPassword, confirmPassword) => async (dispatch) => {
-  console.log(oldPassword, newPassword, confirmPassword)
+export const changePassword =
+  (oldPassword, newPassword, confirmPassword) => async (dispatch) => {
+    // console.log(oldPassword, newPassword, confirmPassword)
     try {
       dispatch({ type: "changePasswordRequest" });
       const config = {
         headers: {
           "content-type": "application/json",
           authorization: localStorage.getItem("authToken"),
-        }
+        },
       };
 
       const { data } = await axios.put(
@@ -104,37 +104,116 @@ export const changePassword = (oldPassword, newPassword, confirmPassword) => asy
     }
   };
 
-  export const forgetPassword = email => async dispatch => {
+export const forgetPassword = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: "forgetPasswordRequest" });
+
+    const { data } = await axios.post(
+      `${server}/password/forgot`,
+      { email },
+      { headers: { "content-type": "application/json" }, withCredentials: true }
+    );
+    dispatch({ type: "forgetPasswordSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "updateProfilePictureFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const resetPassword =
+  (token, password, confirmPassword) => async (dispatch) => {
     try {
-      dispatch({ type: 'forgetPasswordRequest' });
-  
-      const { data } = await axios.post(
-        `${server}/password/forgot`,
-        { email },
-        { headers: { 'content-type': 'application/json' }, withCredentials: true }
+      dispatch({ type: "resetPasswordRequest" });
+      const { data } = await axios.put(
+        `${server}/password/reset/${token}`,
+        { password, confirmPassword },
+        {
+          headers: { "content-type": "application/json" },
+          withCredentials: true,
+        }
       );
-      dispatch({ type: 'forgetPasswordSuccess', payload: data.message });
+      dispatch({ type: "resetPasswordSuccess", payload: data.message });
     } catch (error) {
       dispatch({
-        type: 'updateProfilePictureFail',
+        type: "resetPasswordFail",
         payload: error.response.data.message,
       });
     }
   };
 
-  export const resetPassword = (token, password,confirmPassword) => async dispatch => {
-    try {
-      dispatch({ type: 'resetPasswordRequest' });
-      const { data } = await axios.put(
-        `${server}/password/reset/${token}`,
-        { password ,confirmPassword},
-        { headers: { 'content-type': 'application/json' }, withCredentials: true }
-      );
-      dispatch({ type: 'resetPasswordSuccess', payload: data.message });
-    } catch (error) {
-      dispatch({
-        type: 'resetPasswordFail',
-        payload: error.response.data.message,
-      });
-    }
-  };
+//get All Users --Admin
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    dispatch({ type: "allUserRequest" });
+
+    const { data } = await axios.get(`${server}/admin/users`, {
+      headers: { authorization: localStorage.getItem("authToken") },
+    });
+
+    dispatch({ type: "allUserSuccess", payload: data.users });
+  } catch (error) {
+    dispatch({ type: "allUserFail", payload: error.response.data.message });
+  }
+};
+
+//get User Details --Admin
+export const getUserDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "userDetailsRequest" });
+
+    const { data } = await axios.get(`${server}/admin/users/${id}`, {
+      headers: { authorization: localStorage.getItem("authToken") },
+    });
+
+    dispatch({ type: "userDetailsSuccess", payload: data.user });
+  } catch (error) {
+    dispatch({ type: "userDetailsFail", payload: error.response.data.message });
+  }
+};
+
+//Update User
+export const updateUser = (id, userData) => async (dispatch) => {
+  // console.log(oldPassword, newPassword, confirmPassword)
+  try {
+    dispatch({ type: "updateUserRequest" });
+    const config = {
+      headers: {
+        "content-type": "application/json",
+        authorization: localStorage.getItem("authToken"),
+      },
+    };
+
+    const { data } = await axios.put(
+      `${server}/admin/users/${id}`,
+      userData,
+      config
+    );
+    dispatch({ type: "updateUserSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "updateUserFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//Delete User
+export const deleteUser = (id) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        authorization: localStorage.getItem("authToken"),
+      },
+    };
+    dispatch({ type: "deleteUserRequest" });
+    const { data } = await axios.delete(`${server}/admin/users/${id}`, config);
+    dispatch({ type: "deleteUserSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "deleteUserFail",
+      payload: error.response.data.message,
+    });
+  }
+};

@@ -5,7 +5,11 @@ import {
   productReducer,
   productReviewReducer,
 } from "./Reducer/productReducer";
-import { profileReducer, userReducer } from "./Reducer/userReducer";
+import {
+  adminUserActionReducer,
+  profileReducer,
+  userReducer,
+} from "./Reducer/userReducer";
 import { cartReducer } from "./Reducer/cartReducer";
 import {
   adminOrderReducer,
@@ -27,6 +31,7 @@ const store = configureStore({
     review: productReviewReducer,
     createProduct: createProductReducer,
     adminOrders: adminOrderReducer,
+    adminUserAction: adminUserActionReducer,
   },
 });
 

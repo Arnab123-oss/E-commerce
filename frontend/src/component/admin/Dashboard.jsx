@@ -19,10 +19,14 @@ import {
 } from "chart.js";
 import MetaData from "../layout/Header/MetaData";
 import { getAdminProduct } from "../../Redux/action/product";
+import { adminOrdersDetails } from "../../Redux/action/order";
+import { getAllUsers } from "../../Redux/action/user";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.product);
+  const { orders } = useSelector((state) => state.adminOrders);
+  const { users } = useSelector((state) => state.adminUserAction);
 
   ChartJS.register(
     CategoryScale,
@@ -46,6 +50,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getAdminProduct());
+    dispatch(adminOrdersDetails());
+    dispatch(getAllUsers());
   }, [dispatch]);
 
   const lineState = {
@@ -93,13 +99,11 @@ const Dashboard = () => {
             </Link>
             <Link to="/admin/orders">
               <p>Orders</p>
-              <p>50</p>
-              {/* orders && orders.length */}
+              <p>{orders && orders.length}</p>
             </Link>
             <Link to="/admin/users">
               <p>Users</p>
-              <p>Fuck</p>
-              {/* users && users.length */}
+              <p> {users && users.length}</p>
             </Link>
           </div>
         </div>

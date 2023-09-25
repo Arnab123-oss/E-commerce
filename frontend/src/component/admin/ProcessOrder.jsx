@@ -1,45 +1,70 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import "./processOrder.css";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/Header/MetaData";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TbCoinRupee } from "react-icons/tb";
 import SideBar from "./Sidebar";
 import toast from "react-hot-toast";
 import Loader from "../layout/Loader/Loader";
+import { getOrdersDetails, updateOrder } from "../../Redux/action/order";
+import { MdAccountTree } from "react-icons/md";
+import { Button } from "@material-ui/core";
 
 const ProcessOrder = () => {
   const navigate = useNavigate();
   const params = useParams();
-  
-  const dispatch = useDispatch;
-  const { order, error, loading } = useSelector((state) => state.orderDetails);
 
-  // const subtotal = order.orderItems.reduce(
-  //   (acc, item) => acc + item.quantity * item.price,
-  //   0
-  // );
+  const dispatch = useDispatch();
+  const { order, error, loading } = useSelector((state) => state.orderDetails);
+  const { error: updateOrderError, message } = useSelector(
+    (state) => state.adminOrders
+  );
+
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     if (error) {
       toast.error(error);
       dispatch({ type: "clearError" });
     }
-  }, [dispatch, error]);
+    if (updateOrderError) {
+      toast.error(updateOrderError);
+      dispatch({ type: "clearError" });
+    }
+    if (message) {
+      toast.success(message);
+      dispatch({ type: "clearMessage" });
+    }
+    dispatch(getOrdersDetails(params.id));
+  }, [dispatch, error, params.id, updateOrderError, message]);
 
-  const proceedToPayment = () => {};
+  const processOrderHandler = (e) => {
+    e.preventDefault();
+    const myForm = new FormData();
+
+    myForm.set("status", status);
+
+    dispatch(updateOrder(params.id, myForm));
+  };
 
   return (
     <>
-      <MetaData title="Update Product" />
+      <MetaData title="Process Order" />
       <div className="dashboard">
         <SideBar />
         <div className="newProductContainer">
           {loading ? (
             <Loader />
           ) : (
-            <div className="confirmOrderPage">
+            <div
+              className="confirmOrderPage"
+              style={{
+                display: order.orderStatus === "Delivered" ? "block" : "grid",
+              }}
+            >
               <div>
                 <div className="confirmshippingArea">
                   <Typography>Shipping Info</Typography>
@@ -57,7 +82,8 @@ const ProcessOrder = () => {
                     <div>
                       <p>Address:</p>
                       <span>
-                        {order.shippingInfo &&
+                        {order &&
+                          order.shippingInfo &&
                           `${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.state}, ${order.shippingInfo.pinCode}, ${order.shippingInfo.country}`}
                       </span>
                     </div>
@@ -122,34 +148,42 @@ const ProcessOrder = () => {
                   </div>
                 </div>
               </div>
-              {/*  */}
-              <div>
-                <div className="orderSummary">
-                  <Typography>Order Summery</Typography>
+
+              <div
+                style={{
+                  display: order.orderStatus === "Delivered" ? "none" : "block",
+                }}
+              >
+                <form
+                  className="createProductForm"
+                  encType="multipart/form-data"
+                  onSubmit={processOrderHandler}
+                >
+                  <h1>Process Order</h1>
                   <div>
-                    <div>
-                      <p>Subtotal:</p>
-                      <span>₹{12542}</span>
-                    </div>
-                    <div>
-                      <p>Shipping Charges:</p>
-                      <span>₹{455221}</span>
-                    </div>
-                    <div>
-                      <p>GST:</p>
-                      <span>₹{455}</span>
-                    </div>
+                    <MdAccountTree />
+                    <select onChange={(e) => setStatus(e.target.value)}>
+                      <option value="">Choose Category</option>
+                      {order.orderStatus === "Preparing" && (
+                        <option value="Shipped">Shipped</option>
+                      )}
+
+                      {order.orderStatus === "Shipped" && (
+                        <option value="Delivered">Delivered</option>
+                      )}
+                    </select>
                   </div>
 
-                  <div className="orderSummaryTotal">
-                    <p>
-                      <b>Total:</b>
-                    </p>
-                    <span>₹{45632}</span>
-                  </div>
-
-                  <button onClick={proceedToPayment}>Proceed To Payment</button>
-                </div>
+                  <Button
+                    id="createProductBtn"
+                    type="submit"
+                    disabled={
+                      loading ? true : false || status === "" ? true : false
+                    }
+                  >
+                    Update
+                  </Button>
+                </form>
               </div>
             </div>
           )}

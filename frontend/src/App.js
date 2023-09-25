@@ -37,6 +37,11 @@ import CreateProduct from "./component/admin/CreateProduct";
 import UpdateProduct from "./component/admin/UpdateProduct";
 import ProductOrderList from "./component/admin/ProductOrderList";
 import ProcessOrder from "./component/admin/ProcessOrder";
+import AllUsers from "./component/admin/AllUsers";
+import UpdateUser from "./component/admin/UpdateUser";
+import UpdateReviews from "./component/admin/UpdateReviews";
+
+
 
 
 function App() {
@@ -254,6 +259,45 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin"}
+            >
+              <AllUsers />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/user/:id"
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin"}
+            >
+              <UpdateUser />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/reviews"
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              adminRoute={true}
+              isAdmin={user && user.role === "admin"}
+            >
+              <UpdateReviews />
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
       <Footer />
       <Toaster />

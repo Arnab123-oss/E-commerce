@@ -85,6 +85,7 @@ export const getAllOrders = catchAsyncError(async (req, res, next) => {
 //Update Order Status -- Admin
 
 export const updateOrder = catchAsyncError(async (req, res, next) => {
+  
   const order = await Order.findById(req.params.id);
 
   if (!order) {
