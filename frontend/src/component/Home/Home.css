@@ -1,5 +1,8 @@
 .banner {
-  background-image: linear-gradient(to right, #635dc0, #3027ae);
+  background-image: url("https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fG5hdHVyZSUyMHdhbHBhcGVyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100vmin;
   display: flex;
   flex-direction: column;
